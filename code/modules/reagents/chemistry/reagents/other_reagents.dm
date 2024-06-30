@@ -410,6 +410,22 @@
 		affected_mob.remove_status_effect(/datum/status_effect/speech/stutter)
 		holder?.remove_reagent(type, volume) // maybe this is a little too perfect and a max() cap on the statuses would be better??
 
+	if(ishuman(affected_mob) && is_vampire(affected_mob) && prob(80)) // MASSMETA EDIT ADDITION START (vampires)
+		var/datum/antagonist/vampire/V = affected_mob.mind.has_antag_datum(ANTAG_DATUM_VAMPIRE)
+		if(!V.get_ability(/datum/vampire_passive/full))
+			switch(data)
+				if(1 to 4)
+					to_chat(affected_mob, span_warning("Something sizzles in your veins!"))
+					affected_mob.adjustFireLoss(0.5)
+				if(5 to 12)
+					to_chat(affected_mob, span_danger("You feel an intense burning inside of you!"))
+					affected_mob.adjustFireLoss(1)
+				if(13 to INFINITY)
+					affected_mob.visible_message(span_danger("[affected_mob] suddenly bursts into flames!"), span_userdanger("You suddenly ignite in a holy fire!"))
+					affected_mob.adjust_fire_stacks(3)
+					affected_mob.ignite_mob()            //Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
+					affected_mob.adjustFireLoss(3)        //Hence the other damages... ain't I a bastard? // MASSMETA EDIT ADDITION END
+
 /datum/reagent/water/holywater/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
 	if(!istype(exposed_turf))

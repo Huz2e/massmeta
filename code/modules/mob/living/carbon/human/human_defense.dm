@@ -134,6 +134,8 @@
 		return TRUE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
+		if(H.combat_mode && handle_vamp_biting(H)) // MASSMETA EDIT ADDITION START (vampires)
+			return // MASSMETA EDIT ADDITION END
 		dna.species.spec_attack_hand(H, src, null, modifiers)
 
 /mob/living/carbon/human/proc/disarm_precollide(datum/source, mob/living/shover, mob/living/target, obj/item/weapon)

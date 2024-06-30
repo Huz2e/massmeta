@@ -88,6 +88,12 @@
 	/// The amount of smoke to create on cast. This is a range, so a value of 5 will create enough smoke to cover everything within 5 steps.
 	var/smoke_amt = 0
 
+	/// An associative list of all resource costs
+	var/list/resource_costs // MASSMETA EDIT ADDITION (vampires)
+	/// Boolean, if true, resource costs will be ignored
+	var/bypass_cost = FALSE // MASSMETA EDIT ADDITION (vampires)
+
+
 /datum/action/cooldown/spell/Grant(mob/grant_to)
 	// If our spell is mind-bound, we only wanna grant it to our mind
 	if(istype(target, /datum/mind))
@@ -195,6 +201,16 @@
 					to_chat(owner, span_warning("You don't feel strong enough without your hat!"))
 				return FALSE
 
+	// MASSMETA EDIT ADDITION START (vampires)
+	if(owner.mind && !bypass_cost && LAZYLEN(resource_costs))
+		for(var/i in resource_costs)
+			var/has_cost = SEND_SIGNAL(owner.mind, COMSIG_MIND_CHECK_ANTAG_RESOURCE, i, resource_costs[i])
+			if(!has_cost)
+				if(feedback)
+					to_chat(owner, span_warning("You don't have enough [i]!"))
+				return FALSE
+	// MASSMETA EDIT ADDITION END (vampires)
+
 	else
 		// If you strictly need to be a human, well, goodbye.
 		if(spell_requirements & SPELL_REQUIRES_HUMAN)
@@ -279,6 +295,7 @@
 	if(!(precast_result & SPELL_NO_IMMEDIATE_COOLDOWN))
 		// The entire spell is done, start the actual cooldown at its set duration
 		StartCooldown()
+		consume_resource() // MASSMETA EDIT ADDITION (vampires)
 
 	// And then proceed with the aftermath of the cast
 	// Final effects that happen after all the casting is done can go here
@@ -371,6 +388,12 @@
 	// Send signals last in case they delete the spell
 	SEND_SIGNAL(owner, COMSIG_MOB_AFTER_SPELL_CAST, src, cast_on)
 	SEND_SIGNAL(src, COMSIG_SPELL_AFTER_CAST, cast_on)
+
+//MASSMETA EDIT ADDITION START (vampires)
+/datum/action/cooldown/spell/proc/consume_resource()
+	if(!bypass_cost && owner.mind && LAZYLEN(resource_costs))
+		SEND_SIGNAL(owner.mind, COMSIG_MIND_SPEND_ANTAG_RESOURCE, resource_costs)
+//MASSMETA EDIT ADDITION END(vampires)
 
 /// Provides feedback after a spell cast occurs, in the form of a cast sound and/or invocation
 /datum/action/cooldown/spell/proc/spell_feedback(mob/living/invoker)
