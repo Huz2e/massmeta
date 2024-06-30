@@ -110,5 +110,9 @@
 #include "code\modules\reagents\reagent_containers\cups\soda.dm"
 #include "code\modules\reagents\reagent_dispenser.dm"
 
+//Testicular_torsion wizard
+#include "code\modules\spells\spell_types\touch\testicular_torsion.dm"
+#include "code\modules\antags\wizard\equipment\spellbook_entries\offensive.dm"
+
 //smites
 #include "features\smites\testicular_torsion.dm"
