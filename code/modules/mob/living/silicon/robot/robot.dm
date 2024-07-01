@@ -177,7 +177,12 @@
 	for(var/option in model_list)
 		var/obj/item/robot_model/model = model_list[option]
 		var/model_icon = initial(model.cyborg_base_icon)
-		model_icons[option] = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = model_icon)
+		//MASSMETA EDIT BEGIN
+		if(model_icon == "Kvass Miner")
+			model_icons[option] = image(icon = 'massmeta/icons/mob/silicon/robots.dmi', icon_state = model_icon)
+		else
+			model_icons[option] = image(icon = 'icons/mob/silicon/robots.dmi', icon_state = model_icon)
+		//MASSMETA EDIT END
 
 	var/input_model = show_radial_menu(src, src, model_icons, radius = 42)
 	if(!input_model || model.type != /obj/item/robot_model)

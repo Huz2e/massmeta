@@ -262,7 +262,12 @@
 		var/list/reskin_icons = list()
 		for(var/skin in borg_skins)
 			var/list/details = borg_skins[skin]
-			reskin_icons[skin] = image(icon = details[SKIN_ICON] || 'icons/mob/silicon/robots.dmi', icon_state = details[SKIN_ICON_STATE])
+			//MASSMETA EDIT BEGIN
+			if(skin == "Kvass Miner")
+				reskin_icons[skin] = image(icon = details[SKIN_ICON] || 'massmeta/icons/mob/silicon/robots.dmi', icon_state = details[SKIN_ICON_STATE])
+			else
+				reskin_icons[skin] = image(icon = details[SKIN_ICON] || 'icons/mob/silicon/robots.dmi', icon_state = details[SKIN_ICON_STATE])
+			//MASSMETA EDIT END
 		var/borg_skin = show_radial_menu(cyborg, cyborg, reskin_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), cyborg, old_model), radius = 38, require_near = TRUE)
 		if(!borg_skin)
 			return FALSE
@@ -737,6 +742,7 @@
 	hat_offset = 0
 	borg_skins = list(
 		"Asteroid Miner" = list(SKIN_ICON_STATE = "minerOLD"),
+		"Kvass Miner" = list(SKIN_ICON_STATE = "minerKvass", SKIN_ICON = 'massmeta/icons/mob/silicon/robots.dmi'), //MASSMETA ADDITION
 		"Spider Miner" = list(SKIN_ICON_STATE = "spidermin"),
 		"Lavaland Miner" = list(SKIN_ICON_STATE = "miner"),
 	)
