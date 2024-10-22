@@ -1,0 +1,305 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="dmdoc.css"><title>massmeta/modularization_guide.md - /tg/ Station 13</title></head><body><header><a href="index.html">/tg/ Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>Руководство по модуляризации кода – MassMeta style, v0.3 <aside>massmeta/modularization_guide.md</aside> <a href="https://github.com/Huz2e/massmeta/blob/4c0119d21a3384aaef3f31fc27f7b01e00500db1/massmeta/modularization_guide.md0"><img src="git.png" width="16" height="16" title="massmeta/modularization_guide.md0"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><p><strong>Соблюдение этого Гайда – залог успешного мержа Вашей фичи в репозиторий.</strong></p>
+<h2 id="вступление">Вступление</h2>
+<p>Проект <strong>МассМета</strong> 🧰 – это, постоянно обновляющаяся, модульная ветка от проекта <a href="https://github.com/tgstation/tgstation">/TG/station</a>. Тут мы добавляем свои фичи и по возможности откатываем неудачные. Прочитав эту инструкцию – Вы поймете как правильно нужно внедрить к нам Вашу идею, чтоб ее могли увидеть в свет другие игроки нашего сервера.</p>
+<p>Несоблюдение данного руководства приведёт к стагнации код-базы проекта, как это было до. Осознав наши прошлые ошибки - было принято решение привести проект к модульности подобно той, как на серверах Skyrat, однако доработанной под наши нужды. <a href="https://github.com/NovaSector/NovaSector/blob/master/modular_nova/readme.md">Оригинальное руководство</a> (на англ.)</p>
+<p>⚠️ <strong>Все Баг-фиксы немодульного кода, изменение не Наших карт и тем более уже рефакторы кода – Вам нужно будет заливать именно в апстрим /TG/station !</strong></p>
+<h3 id="про-тестирование-своих-prов">Про тестирование своих PR'ов 🔬</h3>
+<p>Прежде чем открывать PR на слияние, то было бы неплохо проверить Ваш код на работоспособность.
+А именно:</p>
+<ul>
+<li>Скомпилируйте билд на своей локальной машине.</li>
+<li>Запустите билд с Вашей <strong>Фичей</strong> и посмотрите как она себя ведёт, если ли какие-либо аномалии. </li>
+<li>Если Ваша Фича предполагает взаимодействие нескольких игроков, то можете воспользоваться <strong>Гостевым аккаунтом</strong>. Для этого выйдите из BYOND-хаба и зайдите на локалку как Guest-[много циферок].</li>
+</ul>
+<p>Как только Вы считаете, что уже достаточно проверили своё творение, то создавайте PR на наш репозиторий, там Вам уже подскажут как можно доработать тот или иной момент.</p>
+<h3 id="про-платформу-github">Про платформу GitHub</h3>
+<p>Это одна из многих видов Систем Контроля Версий. Проект /TG/station располагается именно на нем. Сам Git одновременно и достаточно проработан в плане алгоритмов, он ими же и ограничен. Они не всегда могут однозначно самостоятельно разрешить определенные изменения в коде, что приводит к конфликтам, которые нужно резолвить вручную.</p>
+<p>Подробнее про сам Git и как с ним работать <a href="https://git-scm.com/book/ru/v2">тут</a>.</p>
+<h2 id="суть-конфликта">Суть Конфликта ⚔️</h2>
+<p>Начнём сразу с показательного примера.</p>
+<p>Предположим, что в какой-то строчке оригинального файла <strong><code>foobar.dm</code></strong> /TG/station было так:</p>
+<pre><code class="language-byond">var/something = 1
+</code></pre>
+<p>Однако, под наши нужны нам потребовалось изменить значение с <strong>1</strong> на <strong>2</strong> под какую-то фичу в проекте,</p>
+<pre><code class="language-diff">- var/something = 1
++ var/something = 2 //MASSMETA EDIT
+</code></pre>
+<p>Но неожиданно апстрим /TG/station вносит свои изменения (commit: their-feature) в эту же строку файла, меняя её у себя с <strong>1</strong> на <strong>4</strong>,</p>
+<pre><code class="language-diff">- var/something = 1
++ var/something = 4
+</code></pre>
+<p>Затем мы решили синхронизировать изменения и видим следующее,</p>
+<pre><code class="language-byond">&lt;&lt;&lt;&lt;&lt;&lt; HEAD:foobar.dm
+var/something = 2 //MASSMETA EDIT
+======
+var/something = 4
+&gt;&gt;&gt;&gt;&gt;&gt; their-feature:foobar.dm
+</code></pre>
+<p>В данном случае в череду коммитов /TG/station внедряется дополнительный, про который известно только нам самим. ГитХаб, видя подобное несоответствие - даёт нам сделать выбор.</p>
+<p>Например, нам нужно оставить только Наше изменение, то просто удаляем все что нам добавил ГитХаб и оставляем только нужное,</p>
+<pre><code class="language-byond">var/something = 2 //MASSMETA EDIT
+</code></pre>
+<p>Подобного рода конфликты разрешаются именно ручками, однако есть другие подходы в виде модульного кода, о которых мы расскажем далее в данном руководстве.</p>
+<p>Подробнее про <a href="https://git-scm.com/book/ru/v2/%D0%92%D0%B5%D1%82%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B2-Git-%D0%9E%D1%81%D0%BD%D0%BE%D0%B2%D1%8B-%D0%B2%D0%B5%D1%82%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B8-%D1%81%D0%BB%D0%B8%D1%8F%D0%BD%D0%B8%D1%8F">Ветвления и Слияния</a>.</p>
+<h2 id="протокол-модуляризации">Протокол модуляризации 🛠️</h2>
+<p>У Вашего модуля должно быть короткое и информативное название в документации, например - <strong><code>shuttle_toggle</code></strong>.</p>
+<p>Этим уникальным <strong>ID</strong> Вы затем назовёте:</p>
+<ul>
+<li>
+<p>Свою модульную папку <code>modular_meta/features/shuttle_toggle/</code>, в которой вы будете локально работать.</p>
+</li>
+<li>
+<p>А также в дальнейшем Вы будете помечать все <strong>Немодульные</strong> изменения в коде /TG/station.</p>
+</li>
+</ul>
+<p>Теперь подробнее про виды модуляризации.</p>
+<h3 id="не-модульные-изменения">Не Модульные Изменения</h3>
+<p>Время от времени наступает момент, когда редактирование <strong>оригинальных</strong> файлов /TG/station становится неизбежным.</p>
+<p>📌 Пожалуйста, не забудьте записать факт их изменения под пунктом <strong>&quot;Original TG Changes&quot;</strong> в <strong><code>readme.md</code></strong> вашего модуля.</p>
+<p>В этих случаях мы решили применять следующую стандартизацию:</p>
+<ul>
+<li>
+<p><strong>Добавление:</strong></p>
+<pre><code class="language-byond">//MASSMETA EDIT ADDITION BEGIN (shuttle_toggle)
+var/adminEmergencyNoRecall = FALSE
+var/lastMode = SHUTTLE_IDLE
+var/lastCallTime = 6000
+//MASSMETA EDIT ADDITION END
+</code></pre>
+</li>
+<li>
+<p><strong>Удаление:</strong></p>
+<pre><code class="language-byond">//MASSMETA EDIT REMOVAL BEGIN (shuttle_toggle)
+/*
+for(var/obj/docking_port/stationary/S in stationary)
+    if(S.id = id)
+        return S
+*/
+//MASSMETA EDIT REMOVAL END
+</code></pre>
+</li>
+<li>
+<p><strong>Изменения:</strong></p>
+<pre><code class="language-byond">//MASSMETA EDIT CHANGE BEGIN (shuttle_toggle)
+/* ORIGINAL
+if(SHUTTLE_STRANDED, SHUTTLE_ESCAPE)
+*/
+if(SHUTTLE_STRANDED, SHUTTLE_ESCAPE, SHUTTLE_DISABLED)
+//MASSMETA EDIT CHANGE END
+    return 1
+</code></pre>
+<p>💡 Если предполагается <strong>&quot;Масштабное&quot;</strong> изменений кода, то такое переопределение уже можно переместить в модуль. Однако на месте удаления обязательно допишите: (Moved to: modular_meta/features/shuttle_toggle/randomverbs.dm)</p>
+<p>⚠️ Обязательно оставляем все что было до вашего вмешательства под пометкой <strong>ORIGINAL</strong>!</p>
+</li>
+</ul>
+<h3 id="полностью-модульные-изменения">Полностью Модульные Изменения</h3>
+<p>В нашем проекте присутствует папка <strong><code>modular_meta/</code></strong>, там будут храниться все наши <strong>&quot;Модульные&quot;</strong> изменения кода /TG/station.</p>
+<p>💡 Она полностью независима и этим мы гарантируем, что кодеры с /TG/station не будут туда вмешиваться.</p>
+<p>В этой папке есть ещё несколько подпапок и файлов:</p>
+<table><thead><tr><th>Папка/Файл</th></tr></thead><tbody>
+<tr><td><strong>~meta_defines/</strong> 📂</td></tr>
+<tr><td><strong>features/</strong> 📂</td></tr>
+<tr><td><strong>reverts/</strong> 📂</td></tr>
+<tr><td><strong>tools/</strong> 📂</td></tr>
+<tr><td><strong>modular_meta_defines.dm</strong> 📄</td></tr>
+<tr><td><strong>modular_meta_features.dm</strong> 📄</td></tr>
+<tr><td><strong>modular_meta_reverts.dm</strong> 📄</td></tr>
+<tr><td><strong>modularization_guide.md</strong> 📝</td></tr>
+<tr><td><strong>module_template.md</strong> 📝</td></tr>
+<tr><td><strong>readme.md</strong> 📝</td></tr>
+</tbody></table>
+<p>Теперь подробнее про каждую из Папок:</p>
+<ul>
+<li>
+<p><strong><code>~meta_defines/</code></strong> 📂</p>
+<p>Здесь лежат все наши модульные &quot;определения&quot; (они же defines).</p>
+<p>Вынесена отдельно из папки <strong><code>features/</code></strong> вследствии нюансов связанных с самим проектом /TG/station. (т.к. сам byond работает с дефайнами только в директории <strong><code>code/__DEFINES/</code></strong>, туда идёт переопределение наших файлов.)</p>
+<p>Если у вас есть <strong>define</strong>, который используется более чем в одном файле вашего кода, то он <strong>обязательно</strong> должен быть объявлен в файле этой папки.</p>
+<p>💡 Если <strong>define</strong> применяется только в рамках одного файла, то его достаточно объявить вверху и внизу файла.</p>
+<pre><code class="language-byond">#define MY_DEFINE
+//some code with MY_DEFINE here
+#undef MY_DEFINE
+</code></pre>
+<p>📌 Пожалуйста, не забудьте записать факт их добавления под пунктом <strong>&quot;Defines:&quot;</strong> в <strong><code>readme.md</code></strong> вашего модуля.</p>
+<p>Все файлы в папке включены в <strong><code>modular_meta/modular_meta_defines.dm</code></strong>.</p>
+</li>
+<li>
+<p><strong><code>features/</code></strong> 📂</p>
+<p>Здесь лежат все модульные файлы <strong>&quot;Новых Фич&quot;</strong>, которых нет в апстриме. Каждой присвоен уникальный <strong>module_id</strong>.</p>
+<p>Подробнее про строение папок отдельных модулей расскажем чуть ниже.</p>
+<p>Только <code>includes.dm</code> файлы каждого модуля включены в <strong><code>modular_meta_features.dm</code></strong>.</p>
+</li>
+<li>
+<p><strong><code>reverts/</code></strong> 📂</p>
+<p>Папка аналогичная <code>features/</code>, но там располагаются недавние откаты плохих и возвраты хороших по нашему мнению фич, введёных апстримом /TG/station.</p>
+<p>❗ Если фича была уже выпилена давно или же апстрим произвел её полное удаление сразу, то она уже может рассматриваться как самостоятельный модуль. Такое помещаем её уже в папку <code>features/</code>!</p>
+<p>Такой модуль именовать уже обязательно с припиской <strong>&quot;revert_&quot;</strong>, например вот так: <strong>revert_module_id</strong>.</p>
+<p>⚠️ Обязательно укажите в файле <strong><code>readme.md</code></strong> модуля ссылку на пиар, который откатываевается!</p>
+<p>Только <code>includes.dm</code> файлы каждого модуля включены в <strong><code>modular_meta_reverts.dm</code></strong>.</p>
+</li>
+<li>
+<p><strong><code>tools/</code></strong> 📂</p>
+<p>Тут лежат все дополнительные инструменты проверки нашего кода.</p>
+<p>Они проверяют только файлы в модульной папке, помогая нам не совершать дополнительных ошибкок.</p>
+<p>К ним идет прямое обращение только в файле: <strong><code>.github/workflows/ci_suite.yml</code></strong>.</p>
+</li>
+</ul>
+<h2 id="подробнее-про-наполнение-папок-features-и-reverts">Подробнее про наполнение папок (features/ и reverts/)</h2>
+<p>Чтобы сохранить общий стиль и обеспечить удобную навигацию по большинству модулей, а также контролировать количество файлов и папок в репозитории, Вы должны располагать определённые типы файлов по своим папкам.</p>
+<p>⚠️ Каждый модуль обязан содержать в себе файл документации модуля – <code>readme.md</code>.</p>
+<table><thead><tr><th>Папка/Файл</th><th>Содержимое</th></tr></thead><tbody>
+<tr><td><strong>code/</strong> 📁</td><td>Файлы кода: <strong><code>.dm</code></strong></td></tr>
+<tr><td><strong>icon/</strong> 📁</td><td>Файлы иконок и картинок: <strong><code>.dmi</code></strong> и <strong><code>.png</code></strong></td></tr>
+<tr><td><strong>sound/</strong> 📁</td><td>Звуковые файлы: <strong><code>.ogg</code></strong> и <strong><code>.waw</code></strong></td></tr>
+<tr><td><strong>includes.dm</strong> 📄</td><td>Перечисление всех файлов в папке <strong>code/</strong></td></tr>
+<tr><td><strong>readme.md</strong> 📝</td><td>Полная документация к модулю, <a href="module_template.md">пример</a></td></tr>
+</tbody></table>
+<p>⚠️ Файлы строк: <strong><code>.txt</code></strong> и <strong><code>.json</code></strong> вы помещаете в папку <code>strings/massmeta/</code>, т.к. код /TG/station не может работать нормально со всеми файлами-строк вне этой папки. Укажите факт из добавления в <strong><code>readme.md</code></strong> вашего модуля.</p>
+<p>⛔ У проектов <strong>Skyrat</strong> присуствует папка <code>master_files/</code>, однако у нас в проекте её НЕТ! Все переопредения кода у нас помещается полностью в модуль с особыми пометками! Пояснения будут позже.</p>
+<p>❗ Также у проектов <strong>Skyrat</strong> стандартно все новые файлы сразу включаются в общий файл <strong><code>tgstation.dme</code></strong>, что я считаю достаточно трудным для дальнейшней поддрежки, да и в целом это не особо согласуется с их модульным принципом. У нашего проекта другой поход в этом моменте, как Вы видите.</p>
+<h3 id="подробнее-про-папку">Подробнее про папку <strong><code>code/</code></strong></h3>
+<p>⚠️ В этих файлах не должно быть закомментированного кода, тем более полностью закомментированных файлов! А вот пояснения к коду оставлять можно, порой даже и нужно.</p>
+<p>Здесь располагается код двух типов:</p>
+<h4 id="абсолютно-новые-функции-и-объекты">Абсолютно новые функции и объекты 🆕</h4>
+<p>Просто ложите все свои новые файлы кода в папку <code>code/</code> своего модуля.</p>
+<p>💡 Можете разбивать Ваш под по подпапкам, если в этом есть нужда.</p>
+<p>Не забывайте проставлять все ваши пути к иконкам и звуку правильно!</p>
+<h4 id="переопределение-объектов-и-функций-tg-station">Переопределение объектов и функций /TG/station 🔀</h4>
+<p>С помощью этих файлов мы косвенно изменяем основной код /TG/station. Это позволяет нам очень изящно внедрять свои коррективы, не вмешиваясь напрямую в основной код. Тем самым не нарушая их череду коммитов и не создавая для нас самих в будущем <strong>Конфликтов Слияния</strong>.</p>
+<p>Однако это является и минусом такого подхода. Гитхаб не сможет нам оперативно подсказать где файл поменялся из-за вмешательства апстрима и где следует учесть измененое или дополнительное переопределение. Иногда прямые изменения кода через <code>//MASSMETA EDIT</code> предпочтительнее. Старайтесь использовать здравый смысл в этом вопросе.</p>
+<p>⚠️ У данных файлов <strong>Не надо соблюдать Иерархию</strong> аналогичной папки <code>code/</code> у /TG/station! Просто ложите вместе со всеми файлами в модуль.</p>
+<p>Эти файлы выносите в &quot;отдельную группу&quot; с помощью пометки <code>&quot;master_&quot;</code>, например: <code>master_tg_filename.dm</code>.</p>
+<p>⚠️ Над каждым блоком таких функций/объектов <strong>подписывайте в каком оригинальном файле /TG/station они расположены</strong>. Таким образом нам будет проще смекнуть что к чему.</p>
+<p>📌 Пожалуйста, не забудьте записать факт таких переопределений под пунктом <strong>&quot;Modular Overrides:&quot;</strong> в <strong><code>readme.md</code></strong> вашего модуля.</p>
+<ul>
+<li>
+<p><strong>Пример модульного переопределения объекта</strong> 💡</p>
+<p>Например, Вы решили модульно переопределить иконку и описание у мольберта (easel).</p>
+<p>Оригинальный объект в коде /TG/station по пути <code>code/modules/art/paintings.dm</code>:</p>
+<pre><code class="language-byond">/obj/structure/easel
+    name = &quot;easel&quot;
+      desc = &quot;Only for the finest of art!&quot;
+      icon = 'icons/obj/art/artstuff.dmi'
+      icon_state = &quot;easel&quot;
+      density = TRUE
+      resistance_flags = FLAMMABLE
+      max_integrity = 60
+      var/obj/item/canvas/painting = null
+</code></pre>
+<p>Для этого создайте новый файл желательно с таким же именем как у оригинала и расположите в папке <code>code/</code> вашего модуля: <code>code/master_paintings.dm</code>.</p>
+<p>Для выполнения нашей цели, наполнение даного файла будет выглядеть примерно так:</p>
+<pre><code class="language-byond">//ORIGINAL: code/modules/art/paintings.dm
+/obj/structure/easel
+    desc = &quot;Let yourself draw!&quot;
+    icon = 'massmeta/features/art/icons/artstuff.dmi'
+    icon_state = &quot;new_easel&quot;
+</code></pre>
+<p>Теперь при компилировании проекта, данное переопределение подменит эти переменные у оригинального объекта мольберта. Тем самым в готовом проекте у мольберта будет уже Новая иконка и описание. Даже код /TG/station менять не пришлось! 🎉</p>
+</li>
+<li>
+<p><strong>Пример модульного добавления фичи в функцию</strong> 💡</p>
+<p>Для простоты предположим, что вы хотите заставить оружие искрить при выстреле для имитации дульной вспышки.</p>
+<p>Также Вы хотите, чтобы это можно было использовать со всеми  видами оружия, использующими эту функцию.</p>
+<p>В модульном файле объекта можно начать с добавления новой переменной <code>var/muzzle_flash</code>.</p>
+<pre><code class="language-byond">/obj/item/gun
+    var/muzzle_flash = TRUE
+</code></pre>
+<p>Теперь у Вас будет <strong>у каждого</strong> наследника этого объекта доступна эта переменная. После этого, допустим, вы захотите проверять её и вызвать искры после выстрела.</p>
+<p>У этого объекта уже есть процедура, что вызывается при стрельбе:</p>
+<pre><code class="language-byond">/obj/item/gun/proc/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
+</code></pre>
+<p>Теперь мы начинаем <strong>добавлять код</strong> для работы нашей фичи в дочернюю процедуру <code>/obj/item/gun/shoot_live_shot()</code>.</p>
+<pre><code class="language-byond">/obj/item/gun/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
+    . = ..()
+    if(muzzle_flash)
+        spawn_sparks(src)
+</code></pre>
+<p>Тут мы обязательно вызываем такую конструкцию <strong><code>. = ..()</code></strong>, она по сути своей говорит, что мы наследуемся от родительской функции. После данной конструкции добаляем весь наш <strong>Новый</strong> код.</p>
+<p>Теперь при компилировании проекта, данные &quot;добавления&quot; допишутся в оригинальный объект и функцию. Этим мы добились того, что оружие при выстреле ещё и искрит, при том не вмешиваясь в функции /TG/station напрямую! 🎉</p>
+</li>
+</ul>
+<h3 id="для-чайников"><strong><code>. = ..()</code></strong> для чайников</h3>
+<p>Как вы уже могли заметить, у языка DM частично заложена парадигма ООП, нас в данном случае интересует процесс наследования объектов и их функций.</p>
+<p>💡 Вы также можете нажать F1 в Dream Maker и прочитать подробный мануал на английском.</p>
+<ul>
+<li>
+<p><code>.</code> – это возвращаемое значение нашей функции по умолчанию. Изначально оно равно <code>null</code>.</p>
+</li>
+<li>
+<p><code>..</code> – это возвращаемое значение родительской функции.</p>
+<p>Через <code>..()</code> Вы обращаетесь к родительской функции, этим вызывая её в нужном месте Вашей функции-наследника.</p>
+</li>
+</ul>
+<p>И теперь, если вы сделаетете подобый манёвр <code>. = ..()</code>, то Вы вызовите родительскую функцию и присвоите её значение возвращаемому значению нашей функции. После этого можете свободно дополнять свою <code>.</code> чем хотите.</p>
+<p>Так же в случае, если Вы не хотите возвращать родительский вывод, то Вы можете сохранить его в любую переменную или просто использовать <code>..()</code></p>
+<p>Мы так же можем вообще не вызывать <code>..()</code> - тогда функция оверрайдится полностью. Но я бы не рекомендовал делать подобное, ради перемещения ориг. функции в модуль и дальнейшей модификации её уже там, ибо когда /TG/station поменяет её у себя, то пиши пропало.</p>
+<p>Также учтите, что вы не сможете при модульном дополнии функции использовать те переменные, которые были объявленны в функции оригинале!</p>
+<h2 id="карты">Карты 🗺️</h2><h3 id="не-модульное-изменение-карт">Не Модульное Изменение Карт</h3>
+<p>Используются карты:</p>
+<ul>
+<li>🔴 Оригинальные с офф ТГ (без прямых наших изменений)</li>
+<li>🟡 Заимствованные с других билдов (некоторые желательно не менять, т.к. мы можем подтягивать обновления в других билдов)</li>
+<li>🟢 Наши самодельные, они же полностью независимые, например, ProtoBoxStation (меняем и чиним как хотим)</li>
+</ul>
+<p>Все наши Новые карты лежат по пути <strong><code>massmeta/_maps/map_files/</code></strong> (не в модульной папке).</p>
+<p>К каждой карте идёт дополнительно <strong><code>.json</code></strong> файл-конфигурации в <strong><code>massmeta/_maps/</code></strong>, не забудьте добавить его тоже!</p>
+<h3 id="модульное-изменение-карт-авто-мапперы">Модульное Изменение Карт (Авто-мапперы)</h3>
+<p>⚠️ Не изменяйте оригинальные карты /TG/station напрямую, Вы стокнётесь потом с таким же хаосом, как если вы бы меняли файлы иконок! Для внесения изменений ипользуйте способы ниже.</p>
+<p>Когда вы добавляете новый элемент на карту, то вы должны сперва определеить масштаб переделок.</p>
+<ul>
+<li>
+<p>Если это <strong>небольшое изменение на 1 предмет</strong>, то используйте простой автоматизатор области.</p>
+<p>Автомаппер простых областей использует записи точек отсчета, чтобы поместить один элемент в область карты, которая имеет определенный смысл.</p>
+</li>
+<li>
+<p>Если речь идет об <strong>изменении целой комнаты</strong>, то используйте автоматизатор шаблонов.</p>
+<p>Автомаппер использует готовые шаблоны для переопределения участков карты, используя координаты для определения начального местоположения. Примеры смотрите в файле automapper_config.toml.</p>
+</li>
+</ul>
+<h2 id="модульный-tgui-tg-user-interface">Модульный TGUI (TG User Interface)</h2>
+<p><strong>TGUI</strong> - еще один исключительный случай, поскольку он использует Javascript, который не может быть модульным, нежели же код DM.</p>
+<p>ВСЕ файлы TGUI находятся в папке <code>/tgui/packages/tgui/interfaces/</code> и ее подкаталогах. Нет какой-то конкретной папки для Наших TGUI файлов!</p>
+<p>📌 Пожалуйста, не забудьте записать факт их добавления/изменения под пунктом <strong>&quot;TGUI Files:&quot;</strong> в <strong><code>readme.md</code></strong> вашего модуля.</p>
+<h3 id="изменение-оригинальных-файлов-tg-station">Изменение оригинальных файлов /TG/station</h3>
+<p>При изменении оригинальных файлов TGUI поступаем аналогично, как и при изменении вышележащего кода DM, однако схема написания комментариев тут несколько иная.</p>
+<p>Вы можете использовать как <code>// MASSMETA EDIT</code>, так и <code>/* MASSMETA EDIT */</code>, хотя в некоторых случаях вам придется использовать одно вместо другого. (в некотрых языках '//' - могут не являться комментированием, учтите это)</p>
+<p>В целом, старайтесь, чтобы комментарии к изменениям находились на той же строке, что и само изменение. Предпочтительно внутри JSX-тега. Например:</p>
+<pre><code class="language-js">&lt;Button
+	onClick={() =&gt; act('spin', { high_quality: true })}
+	icon=&quot;rat&quot; // MASSMETA EDIT ADDITION
+&lt;/Button&gt;
+</code></pre>
+<pre><code class="language-js">&lt;Button
+	onClick={() =&gt; act('spin', { high_quality: true })}
+	// MASSMETA EDIT ADDITION START - another example, multiline changes
+	icon=&quot;rat&quot;
+	tooltip=&quot;spin the rat.&quot;
+	// MASSMETA EDIT ADDITION END
+&lt;/Button&gt;
+</code></pre>
+<pre><code class="language-js">&lt;SomeThing someProp=&quot;whatever&quot; /* it also works in self-closing tags */ /&gt;
+</code></pre>
+<p>В крайнем случае Вы можете заключить ваше редактирование в фигурные скобки, например так: </p>
+<pre><code class="language-js">{/* MASSMETA EDIT ADDITION START */} 
+&lt;SomeThing&gt;
+	someProp=&quot;whatever&quot;
+&lt;/SomeThing&gt;
+{/* MASSMETA EDIT ADDITION END */}
+</code></pre>
+<h3 id="создание-новых-файлов-tgui">Создание новых файлов TGUI</h3>
+<p>⚠️ При создании нового файла TGUI с нуля, пожалуйста, добавьте <strong>Заголовочный Комментарий</strong> самом верху файла:</p>
+<pre><code class="language-js">// THIS IS A MASSMETA UI FILE
+</code></pre>
+<p>Таким образом, они легко идентифицируются как <strong>Наши</strong> модульные файлы TGUI <code>.tsx</code> и <code>.jsx</code>.</p>
+<p>Собственно ничего больше делать и не нужно, комментарии <code>// MASSMETA EDIT</code> в таком файле TGUI излишне.</p>
+<!-- ## Exemplary PR's // TODO: REPLACE THESE!
+
+Here are a couple PR's that are great examples of the guide being followed, reference them if you are stuck:
+
+- <https://github.com/Skyrat-SS13/Skyrat-tg/pull/241>
+- <https://github.com/Skyrat-SS13/Skyrat-tg/pull/111> -->
+<h2 id="в-заключении">В заключении</h2>
+<p>Терпение и труд – ТГ к*дера перетрут. Если мы будем последовательны, то в конечном итоге это избавит НАС от будущих болей в области ГМ, когда Нам (Вам) же придется разрешать конфликты вручную.
+Благодаря более скрупулезному документированию будет сразу понятно, какие изменения были сделаны, где и с помощью каких функций, и все станет гораздо менее двусмысленным и запутанным.</p>
+<p>Желаю удачи в ТГ кодинге. Помните, что сообщество всегда готово помочь Вам, если вдруг понадобится помощь.</p>
+<p>Оригинальное руководство: Skyrat/NovaSector. Перевод + дополнения: Artemchik542. Рецензент текста: SmArtKar.</p></td></tr></table></main><footer>tgstation.dme <a href="https://github.com/Huz2e/massmeta/tree/4c0119d21a3384aaef3f31fc27f7b01e00500db1">4c0119d</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.9.0</a></footer></body></html>
