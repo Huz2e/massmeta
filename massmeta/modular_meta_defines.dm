@@ -7,4 +7,5 @@
 // BEGIN_INCLUDE
 #include "~meta_defines\butt_furrt.dm"
 #include "~meta_defines\inventory.dm"
+#include "~meta_defines\vampire.dm"
 // END_INCLUDE

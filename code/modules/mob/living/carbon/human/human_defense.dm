@@ -129,6 +129,11 @@
 	apply_damage(15, BRUTE, wound_bonus=10)
 
 /mob/living/carbon/human/attack_hand(mob/user, list/modifiers)
+	//MASSMETA EDIT ADDITION START (vampires)
+	var/mob/living/carbon/human/human = user
+	if(human.combat_mode && handle_vamp_biting(human))
+		return TRUE
+	//MASSMETA EDIT ADDITION END
 	. = ..()
 	if(.)
 		return TRUE

@@ -104,3 +104,6 @@
 //Testicular_torsion wizard
 #include "code\modules\spells\spell_types\touch\testicular_torsion.dm"
 #include "code\modules\antags\wizard\equipment\spellbook_entries\offensive.dm"
+
+//vampires
+#include "features\vampires\includes.dm"
