@@ -7,4 +7,6 @@
 // BEGIN_INCLUDE
 #include "~meta_defines\butt_furrt.dm"
 #include "~meta_defines\inventory.dm"
+#include "~meta_defines\nanites.dm"
+#include "~meta_defines\_signals\nanites.dm"
 // END_INCLUDE

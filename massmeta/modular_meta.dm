@@ -15,6 +15,7 @@
 #include "features\additional_circuit\includes.dm"
 #include "features\hardsuits\includes.dm"
 #include "features\kvass\includes.dm"
+#include "features\nanites\includes.dm"
 #include "features\smites\includes.dm"
 #include "features\soviet_crate\includes.dm"
 // END_INCLUDE
