@@ -1,9 +1,10 @@
 /obj/item/clothing/head/helmet/space/hardsuit
 	name = "hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
-	icon = 'massmeta/features/hardsuits/icons/hats.dmi'
-	worn_icon = 'massmeta/features/hardsuits/icons/head.dmi'
-	icon_state = "hardsuit0-engineering"
+	icon = 'modular_meta/features/hardsuits_qol/icons/hats.dmi'
+	worn_icon = 'modular_meta/features/hardsuits_qol/icons/head.dmi'
+	icon_state = "hardsuit0-engineering" // No inhand_icon_state because its a part of hardsuit, that means you can't take it
+	strip_delay = 80
 	max_integrity = 300
 	armor_type = /datum/armor/hardsuit
 	light_system = OVERLAY_LIGHT_DIRECTIONAL

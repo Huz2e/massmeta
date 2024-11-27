@@ -1,3 +1,5 @@
+//code/modules/uplink/uplink_items/nukeops.dm
+
 /datum/uplink_item/suits/hardsuit/syndi_elite
 	name = "Elite Syndicate hardsuit"
 	desc = "An elite version of the syndicate hardsuit, with improved armour and fireproofing."

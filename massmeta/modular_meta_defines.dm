@@ -6,5 +6,4 @@
 
 // BEGIN_INCLUDE
 #include "~meta_defines\butt_furrt.dm"
-#include "~meta_defines\inventory.dm"
 // END_INCLUDE

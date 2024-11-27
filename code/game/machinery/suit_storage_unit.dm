@@ -193,7 +193,7 @@
 		mod = new mod_type(src)
 	if(storage_type)
 		storage = new storage_type(src)
-	//MASSMETA EDIT ADDITION BEGIN
+	//MASSMETA EDIT ADDITION BEGIN (hardsuits_qol)
 	if(space_suit_type)
 		space_suit = new space_suit_type(src)
 	//MASSMETA EDIT ADDITION END
@@ -207,7 +207,7 @@
 	QDEL_NULL(mask)
 	QDEL_NULL(mod)
 	QDEL_NULL(storage)
-	QDEL_NULL(space_suit) //MASSMETA EDIT ADDITION
+	QDEL_NULL(space_suit) //MASSMETA EDIT ADDITION (hardsuits_qol)
 	id_card = null
 	return ..()
 
@@ -240,13 +240,18 @@
 		. += "[base_icon_state]_panel"
 	if(state_open)
 		. += "[base_icon_state]_open"
-		if(suit || mod || space_suit) //MASSMETA EDIT CHANGE - ORIGINAL: if(suit || mod)
+		//MASSMETA EDIT CHANGE BEGIN (hardsuits_qol)
+		/* ORIGINAL
+		if(suit || mod)
+		*/
+		if(suit || mod || space_suit)
+		//MASSMETA EDIT CHANGE BEGIN (hardsuits_qol)
 			. += "[base_icon_state]_suit"
 		if(helmet)
 			. += "[base_icon_state]_helm"
 		if(storage)
 			. += "[base_icon_state]_storage"
-		//MASSMETA EDIT ADDITION BEGIN
+		//MASSMETA EDIT ADDITION BEGIN (hardsuits_qol)
 		if(space_suit)
 			. += "[base_icon_state]_space_suit"
 		//MASSMETA EDIT ADDITION END
@@ -316,7 +321,9 @@
 	mask = null
 	mod = null
 	storage = null
-	space_suit = null //MASSMETA EDIT ADDITION
+	//MASSMETA EDIT ADDITION BEGIN (hardsuits_qol)
+	space_suit = null
+	//MASSMETA EDIT ADDITION END
 	set_occupant(null)
 
 /obj/machinery/suit_storage_unit/on_deconstruction(disassembled)
@@ -354,7 +361,9 @@
 			"mask" = create_silhouette_of(/obj/item/clothing/mask/breath),
 			"mod" = create_silhouette_of(/obj/item/mod/control),
 			"storage" = create_silhouette_of(/obj/item/tank/internals/oxygen),
-			"space_suit" = create_silhouette_of(/obj/item/choice_beacon/space_suit), //MASSMETA EDIT ADDITION
+			//MASSMETA EDIT ADDITION BEGIN (hardsuits_qol)
+			"space_suit" = create_silhouette_of(/obj/item/choice_beacon/space_suit),
+			//MASSMETA EDIT ADDITION END
 		)
 
 	. = ..()
@@ -412,7 +421,12 @@
 			if (occupant && safeties)
 				say("Alert: safeties triggered, occupant detected!")
 				return
-			else if (!helmet && !mask && !suit && !mod && !storage && !occupant && !space_suit) //MASSMETA EDIT CHANGE - ORIGINAL: else if (!helmet && !mask && !suit && !mod && !storage && !occupant)
+			//MASSMETA EDIT CHANGE BEGIN (hardsuits_qol)
+			/* ORIGINAL
+			else if (!helmet && !mask && !suit && !mod && !storage && !occupant)
+			*/
+			else if (!helmet && !mask && !suit && !mod && !storage && !occupant && !space_suit)
+			//MASSMETA EDIT CHANGE END
 				to_chat(user, "There's nothing inside [src] to disinfect!")
 				return
 			else
@@ -526,7 +540,9 @@
 			QDEL_NULL(mask)
 			QDEL_NULL(mod)
 			QDEL_NULL(storage)
-			QDEL_NULL(space_suit) //MASSMETA EDIT ADDITION
+			//MASSMETA EDIT ADDITION BEGIN (hardsuits_qol)
+			QDEL_NULL(space_suit)
+			//MASSMETA EDIT ADDITION END
 			// The wires get damaged too.
 			wires.cut_all()
 		else
@@ -552,11 +568,11 @@
 			if(storage)
 				things_to_clear += storage
 				things_to_clear += storage.get_all_contents()
-			//MASSMETA EDIT ADDITION BEGIN
+			//MASSMETA EDIT ADDITION BEGIN (hardsuits_qol)
 			if(space_suit)
 				things_to_clear += space_suit
 				things_to_clear += space_suit.get_all_contents()
-			//MASSMETA EDIT ADDITION END
+			//MASSMETA EDIT ADDITION END (hardsuits_qol)
 			if(mob_occupant)
 				things_to_clear += mob_occupant
 				things_to_clear += mob_occupant.get_all_contents()
@@ -775,7 +791,7 @@
 			if(!user.transferItemToLoc(weapon, src))
 				return
 			mod = weapon
-		//MASSMETA EDIT ADDITION BEGIN
+		//MASSMETA EDIT ADDITION BEGIN (hardsuits_qol)
 		else if(istype(weapon, /obj/item/choice_beacon/space_suit))
 			if(space_suit)
 				to_chat(user, span_warning("The unit already contains a delivery beacon!"))
@@ -783,7 +799,7 @@
 			if(!user.transferItemToLoc(weapon, src))
 				return
 			space_suit = weapon
-		//MASSMETA EDIT ADDITION END
+		//MASSMETA EDIT ADDITION END (hardsuits_qol)
 		else
 			if(storage)
 				to_chat(user, span_warning("The auxiliary storage compartment is full!"))

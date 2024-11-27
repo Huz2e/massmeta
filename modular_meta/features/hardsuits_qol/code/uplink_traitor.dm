@@ -1,3 +1,5 @@
+//code/modules/uplink/uplink_items/suits.dm
+
 /datum/uplink_item/suits/hardsuit/traitor
 	name = "Blood-red hardsuit"
 	desc = "A dual-mode advanced hardsuit designed for work in special operations."

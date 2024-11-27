@@ -12,7 +12,6 @@
 // Modular files (covered with tests)
 
 // BEGIN_INCLUDE
-#include "features\hardsuits\includes.dm"
 #include "features\kvass\includes.dm"
 #include "features\smites\includes.dm"
 #include "features\soviet_crate\includes.dm"
@@ -74,14 +73,7 @@
 #include "game\objects\items\storage\garment.dm"
 #include "code\modules\hooch.dm"
 #include "code\datums\quirks\positive_quirks\augmented.dm"
-#include "code\game\machinery\computer\orders\order_items\mining\order_mining.dm"
-#include "code\game\objects\structures\crates_lockers\closets\secure\engineering.dm"
-#include "code\modules\cargo\markets\market_items\clothing.dm"
-#include "code\modules\clothing\suits\wiz_robe.dm"
 #include "code\modules\jobs\job_types\clown.dm"
-#include "code\modules\uplink\uplink_items\suits.dm"
-#include "code\modules\uplink\uplink_items\nukeops.dm"
-#include "code\game\machinery\suit_storage_unit.dm"
 #include "code\modules\map_vote.dm"
 #include "code\modules\hallucination\fake_chat.dm"
 
