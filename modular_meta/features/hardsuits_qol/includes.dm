@@ -13,4 +13,4 @@
 /datum/modpack/hardsuits_qol
 	name = "QoL и хардсьюты"
 	desc = "Добавляет хардсьюты. Делает их доступными для выдачи игроку помимо модсьюта. Различные QoL изменения верхней одежды по типу брони. "
-	author = "RosSample и Quinal"
+	author = "RosSample, Artemchik542 и Quinal"
