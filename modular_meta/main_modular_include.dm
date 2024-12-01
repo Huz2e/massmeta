@@ -13,9 +13,12 @@
 #if CHEBUREK_CAR
 	#include "features\cheburek_car\includes.dm"
 #endif
+#if SPECIES_HOG
+	#include "features\hog\includes.dm"
+#endif
 
 /// PEREVODY
-#if RU_CRAYONS 
+#if RU_CRAYONS
 	#include "perevody\ru_crayons\includes.dm"
 #endif
 #if RU_VENDORS

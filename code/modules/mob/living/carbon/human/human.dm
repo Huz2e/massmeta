@@ -1156,3 +1156,8 @@
 
 /mob/living/carbon/human/species/voidwalker
 	race = /datum/species/voidwalker
+
+//MASSMETA EDIT ADDITION BEGIN (hog_species)
+/mob/living/carbon/human/species/hog
+	race = /datum/species/hog
+//MASSMETA EDIT ADDITION END

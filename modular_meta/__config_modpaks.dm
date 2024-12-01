@@ -9,6 +9,7 @@
 /// FEATURES
 #define ADDITIONAL_CIRCUITS 1
 #define CHEBUREK_CAR 1
+#define SPECIES_HOG 1
 /// PEREVODY
 #define RU_CRAYONS 1
 #define RU_VENDORS 1

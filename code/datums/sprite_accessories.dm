@@ -1959,6 +1959,10 @@
 	color_src = HAIR_COLOR
 	locked = TRUE
 
+//MASSMETA EDIT ADDITION BEGIN (hog_species)
+/datum/sprite_accessory/ears/hog
+//MASSMETA EDIT ADDITION END
+
 /datum/sprite_accessory/wings
 	icon = 'icons/mob/human/species/wings.dmi'
 	em_block = TRUE
