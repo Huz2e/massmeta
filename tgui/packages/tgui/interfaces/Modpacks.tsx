@@ -1,7 +1,4 @@
 // THIS IS A MASSMETA UI FILE
-
-import { useBackend } from '../backend';
-import { Box, LabeledList, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
 
 export const Modpacks = (props) => {
