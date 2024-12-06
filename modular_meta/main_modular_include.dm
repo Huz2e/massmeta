@@ -14,6 +14,8 @@
 #endif
 #include "features\hog\includes.dm"
 
+#include "features\venom_knife\includes.dm"
+
 /* -- REVERTS -- */
 
 #include "reverts\revert_glasses_protect_welding\includes.dm"
