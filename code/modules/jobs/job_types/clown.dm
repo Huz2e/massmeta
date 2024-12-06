@@ -59,6 +59,9 @@
 		/obj/item/food/grown/banana = 1,
 		/obj/item/instrument/bikehorn = 1,
 		/obj/item/storage/box/balloons = 1,
+		//MASSMETA EDIT ADDITION BEGIN (hardsuits_qol)
+		/obj/item/choice_beacon/space_suit/clown = 1,
+		//MASSMETA EDIT ADDITION END
 		)
 	belt = /obj/item/modular_computer/pda/clown
 	ears = /obj/item/radio/headset/headset_srv

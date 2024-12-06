@@ -11,6 +11,9 @@
 #include "code\order_mining.dm"
 
 /datum/modpack/hardsuits_qol
+	id = HARDSUITS_QOL
+	icon = 'modular_meta/features/hardsuits_qol/preview.dmi'
 	name = "QoL и хардсьюты"
+	group = "Features"
 	desc = "Добавляет хардсьюты. Делает их доступными для выдачи игроку помимо модсьюта. Различные QoL изменения верхней одежды по типу брони. "
 	author = "RosSample, Artemchik542 и Quinal"

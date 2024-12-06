@@ -13,9 +13,6 @@
 #if CHEBUREK_CAR
 	#include "features\cheburek_car\includes.dm"
 #endif
-#if HARDSUITS_QOL
-	#include "features\hardsuits_qol\includes.dm"
-#endif
 
 /// PEREVODY
 #if RU_CRAYONS

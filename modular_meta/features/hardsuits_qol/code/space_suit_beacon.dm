@@ -142,19 +142,19 @@
 
 ///////// Medical choice beacons ///////////
 
-/obj/item/choice_beacon/space_suit/cmo
+/obj/item/choice_beacon/space_suit/med
 
-/obj/item/choice_beacon/space_suit/cmo/generate_display_names()
-	var/static/list/cmo_suits
-	if(!cmo_suits)
-		cmo_suits = list()
-		var/list/possible_cmo_suits = list(
-			/obj/item/clothing/suit/space/hardsuit/cmo,
+/obj/item/choice_beacon/space_suit/med/generate_display_names()
+	var/static/list/med_suits
+	if(!med_suits)
+		med_suits = list()
+		var/list/possible_med_suits = list(
+			/obj/item/clothing/suit/space/hardsuit/med,
 			/obj/item/mod/control/pre_equipped/rescue,
 		)
-		for(var/obj/item/suit as anything in possible_cmo_suits)
-			cmo_suits[initial(suit.name)] = suit
-	return cmo_suits
+		for(var/obj/item/suit as anything in possible_med_suits)
+			med_suits[initial(suit.name)] = suit
+	return med_suits
 
 // NO BEACON FOR ORDINARY MED SUIT!!!
 

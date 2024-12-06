@@ -37,11 +37,13 @@
 	mod_type = null
 	space_suit_type = /obj/item/choice_beacon/space_suit/mining
 
-// NO CHANGE FOR: /obj/machinery/suit_storage_unit/medical
-
 /obj/machinery/suit_storage_unit/cmo
 	mod_type = null
-	space_suit_type = /obj/item/choice_beacon/space_suit/cmo
+	space_suit_type = /obj/item/choice_beacon/space_suit/med
+
+/obj/machinery/suit_storage_unit/medical
+	mod_type = null
+	space_suit_type = /obj/item/choice_beacon/space_suit/med
 
 /obj/machinery/suit_storage_unit/rd
 	mod_type = null

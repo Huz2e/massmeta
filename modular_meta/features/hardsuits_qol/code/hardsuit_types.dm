@@ -90,9 +90,9 @@
 	if(GS)
 		qdel(GS)
 
-/////////////////////////////////// CMO /////////////////////////////////////////////
+/////////////////////////////////// Medical /////////////////////////////////////////////
 
-/obj/item/clothing/head/helmet/space/hardsuit/cmo
+/obj/item/clothing/head/helmet/space/hardsuit/med
 	name = "medical hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort, but does not protect the eyes from intense light."
 	icon_state = "hardsuit0-medical"
@@ -102,7 +102,7 @@
 	clothing_traits = list(TRAIT_REAGENT_SCANNER)
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT
 
-/obj/item/clothing/suit/space/hardsuit/cmo
+/obj/item/clothing/suit/space/hardsuit/med
 	name = "medical hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Built with lightweight materials for easier movement."
 	icon_state = "hardsuit-medical"

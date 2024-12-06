@@ -73,7 +73,6 @@
 #include "game\objects\items\storage\garment.dm"
 #include "code\modules\hooch.dm"
 #include "code\datums\quirks\positive_quirks\augmented.dm"
-#include "code\modules\jobs\job_types\clown.dm"
 #include "code\modules\map_vote.dm"
 #include "code\modules\hallucination\fake_chat.dm"
 

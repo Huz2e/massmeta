@@ -8,6 +8,7 @@
 ### TG Proc/File Changes:
 
 - code\game\machinery\suit_storage_unit.dm
+- code\modules\jobs\job_types\clown.dm
 
 ### TGUI Files:
 
