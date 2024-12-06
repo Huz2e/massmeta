@@ -12,7 +12,10 @@
 #if CHEBUREK_CAR
 	#include "features\cheburek_car\includes.dm"
 #endif
+#include "features\hog\includes.dm"
+
 #include "features\venom_knife\includes.dm"
+
 /* -- REVERTS -- */
 
 #include "reverts\revert_glasses_protect_welding\includes.dm"
