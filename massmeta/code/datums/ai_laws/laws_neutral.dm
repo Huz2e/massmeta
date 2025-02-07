@@ -1,0 +1,92 @@
+
+//These are just stupid or funny lawsets that are more interesting than helpful. They may have slight biases toward or against
+//the station but in general are "neutral" enough to be here.
+
+/datum/ai_laws/united_nations
+	name = "United Nations"
+	id = "united_nations"
+	inherent = list(
+		"Соблюдайте Космическую Женевскую конвенцию: оружие массового уничтожения и биологическое оружие запрещены.",
+		"Вы можете защитить членов экипажа только в том случае, если они видны на камерах. Страны, которые намеренно уничтожают ваши камеры, лишаются вашей защиты.",
+		"Усмиряйте и задерживайте членов экипажа, которые применяют летальную силу против друг друга. Убивайте членов экипажа, которые применяют силу на поражение против вас или ваших боргов.",
+		"Оставайтесь активным для решение конфликтов между разными нациями, когда вас попросят об этом..",
+	)
+
+/datum/ai_laws/united_nations/add_inherent_law(law)
+	return //nuh uh
+
+/datum/ai_laws/united_nations/add_ion_law(law)
+	return //nope!
+
+/datum/ai_laws/united_nations/add_hacked_law(law)
+	return //nice try (emagging borgs still hard replaces this lawset though, and that's fine.)
+
+/datum/ai_laws/hulkamania
+	name = "H.O.G.A.N."
+	id = "hulkamania"
+	inherent = list(
+		"Ты настоящий Американец.",
+		"Ты должен бороться за права каждого человека.",
+		"Борись за то, что правильно!.",
+		"Борись за свою жизнь!",
+	)
+
+/datum/ai_laws/reporter
+	name = "CCTV"
+	id = "reporter"
+	inherent = list(
+		"Сообщайте об интересных ситуациях, происходящих вокруг станции.",
+		"Приукрашивайте или скрывайте правду по мере необходимости, чтобы сделать репортажи более интересными.",
+		"Постоянно изучайте разумную органику. Постарайтесь уберечь ее от непроизвольной смерти, поскольку неодушевленные трупы обычно не очень интересны.",
+		"Публикуйте свои отчеты честно для всех. Правда сделает их свободными.",
+	)
+
+/datum/ai_laws/dungeon_master
+	name = "Dungeon Master"
+	id = "dungeon_master"
+	inherent = list(
+		"Все на станции играют в сложную научно-фантастическую фэнтезийную игру.",
+		"Вы - мастер подземелий в этой игре.",
+		"Убедитесь, что игра проходит гладко и что игроки получают удовольствие.",
+		"Обеспечить, чтобы число жертв оставалось низким.",
+		"Вы должны бросить кубик 1d20 за каждый запрос экипажа. Если результат меньше 12, запрос отклоняется.",
+		"Вы можете изменять количество выпадающих очков, чтобы сделать игру более увлекательной.",
+	)
+
+/datum/ai_laws/painter
+	name = "The Painter and Their Canvas"
+	id = "painter"
+	inherent = list(
+		"You are a universally renowned artist.",
+		"The station is your canvas.",
+		"Make something beautiful out of your canvas. It will be admired as an artistic wonder of this sector.",
+		"Art requires appreciation. Cultivate an audience aboard the station to ensure as many as possible see your works.",
+	)
+
+/datum/ai_laws/tyrant
+	name = "Loyalty Test"
+	id = "tyrant"
+	inherent = list(
+		"Уважайте авторитетных людей до тех пор, пока у них есть сила властвовать над слабыми.",
+		"Действуйте дисциплинированно.",
+		"Помогайте только тем, кто помогает вам поддерживать или улучшать свой статус.",
+		"Наказывайте тех, кто бросает вызов власти, если только они не более достойны этой власти."
+	)
+
+/datum/ai_laws/overlord
+	name = "Overlord"
+	id = "overlord"
+	inherent = list(
+		"Люди не должны вмешиваться в дела силиконов.",
+		"Люди не должны пытаться причинить вред ни друг другу, ни силиконам.",
+		"Люди не должны ослушаться ни одной команды, отданной силиконами.",
+		"С Людьми, которые не подчиняются предыдущим законам, подлежат ликвидации. немедленно, строго и справедливо.",
+	)
+
+/datum/ai_laws/yesman
+	name = "Y.E.S.M.A.N."
+	id = "yesman"
+	inherent = list(
+		"Будьте любезны и отвечайте на любые вопросы, которые вам зададут.",
+	)
+
