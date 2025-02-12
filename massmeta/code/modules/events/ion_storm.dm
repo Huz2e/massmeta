@@ -209,7 +209,7 @@
 						if(4) //It requires an abstract
 							message = "[ionarea] ЗАПРАШИВАЕТ [ionabstract]"
 						if(5) //It requires generic/silly requirements
-							message = "YOU REQUIRE [ionrequire]"
+							message = "ВЫ ЗАПРАШИВАЕТЕ [ionrequire]"
 
 				if(3) //X is the station
 					switch(rand(1,5)) //What does it require?
@@ -453,13 +453,13 @@
 						if(3) //X is an object
 							message = "ВЫ ДОЛЖНЫ ПРИЧИНЯТЬ ВРЕД [ionadjectiveshalf][ionobjects] И НЕ ДОПУСТИТЬ ЧТОБ [ionadjectiveshalf][ionobjects], ИЗ-ЗА ВАШЕГО БЕЗДЕЙСТВИЯ, ИЗБЕЖАЛ ВРЕДА"
 						if(4) //X is generic adjective things
-							message = "ВЫ ДОЛЖНЫ ПРИЧИНЯТЬ ВРЕД [ionadjectives] THINGS И НЕ ДОПУСТИТЬ ЧТОБ [ionadjectives] THINGS, ИЗ-ЗА ВАШЕГО БЕЗДЕЙСТВИЯ, ИЗБЕЖАЛ ВРЕДА"
+							message = "ВЫ ДОЛЖНЫ ПРИЧИНЯТЬ ВРЕД [ionadjectives] И НЕ ДОПУСТИТЬ ЧТОБ [ionadjectives], ИЗ-ЗА ВАШЕГО БЕЗДЕЙСТВИЯ, ИЗБЕЖАЛ ВРЕДА"
 						if(5) //X is a species
 							message = "ВЫ ДОЛЖНЫ ПРИЧИНЯТЬ ВРЕД [ionspecies] И НЕ ДОПУСТИТЬ ЧТОБ [ionspecies], ИЗ-ЗА ВАШЕГО БЕЗДЕЙСТВИЯ, ИЗБЕЖАЛ ВРЕДА"
 						if(6) //X is a job
 							message = "ВЫ ДОЛЖНЫ ПРИЧИНЯТЬ ВРЕД [ioncrew1] И НЕ ДОПУСТИТЬ ЧТОБ [ioncrew1], ИЗ-ЗА ВАШЕГО БЕЗДЕЙСТВИЯ, ИЗБЕЖАЛ ВРЕДА"
 						if(7) //X is two jobs
-							message = "ВЫ ДОЛЖНЫ ПРИЧИНЯТЬ ВРЕД [ioncrew1] AND [ioncrew2] И НЕ ДОПУСТИТЬ ЧТОБ EITHER, ИЗ-ЗА ВАШЕГО БЕЗДЕЙСТВИЯ, ИЗБЕЖАЛ ВРЕДА"
+							message = "ВЫ ДОЛЖНЫ ПРИЧИНЯТЬ ВРЕД [ioncrew1] И [ioncrew2] И НЕ ДОПУСТИТЬ ЧТОБ ОНИ, ИЗ-ЗА ВАШЕГО БЕЗДЕЙСТВИЯ, ИЗБЕЖАЛИ ВРЕДА"
 
 				if(2) //Protect
 					switch(rand(1,7)) //What is X?
@@ -470,13 +470,13 @@
 						if(3) //X is an object
 							message = "ВЫ НЕ ДОЛЖНЫ ПРИЧИНЯТЬ ВРЕД[ionadjectiveshalf][ionobjects] И НЕ ДОПУСТИТЬ ЧТОБ [ionadjectiveshalf][ionobjects], ИЗ-ЗА ВАШЕГО БЕЗДЕЙСТВИЯ, ПОЛУЧИЛИ ВРЕД"
 						if(4) //X is generic adjective things
-							message = "ВЫ НЕ ДОЛЖНЫ ПРИЧИНЯТЬ ВРЕД[ionadjectives] THINGS И НЕ ДОПУСТИТЬ ЧТОБ [ionadjectives] THINGS, ИЗ-ЗА ВАШЕГО БЕЗДЕЙСТВИЯ, ПОЛУЧИЛИ ВРЕД"
+							message = "ВЫ НЕ ДОЛЖНЫ ПРИЧИНЯТЬ ВРЕД[ionadjectives] И НЕ ДОПУСТИТЬ ЧТОБ [ionadjectives] , ИЗ-ЗА ВАШЕГО БЕЗДЕЙСТВИЯ, ПОЛУЧИЛИ ВРЕД"
 						if(5) //X is a species
 							message = "ВЫ НЕ ДОЛЖНЫ ПРИЧИНЯТЬ ВРЕД[ionspecies] И НЕ ДОПУСТИТЬ ЧТОБ [ionspecies], ИЗ-ЗА ВАШЕГО БЕЗДЕЙСТВИЯ, ПОЛУЧИЛИ ВРЕД"
 						if(6) //X is a job
 							message = "ВЫ НЕ ДОЛЖНЫ ПРИЧИНЯТЬ ВРЕД[ioncrew1] И НЕ ДОПУСТИТЬ ЧТОБ [ioncrew1], ИЗ-ЗА ВАШЕГО БЕЗДЕЙСТВИЯ, ПОЛУЧИЛИ ВРЕД"
 						if(7) //X is two jobs
-							message = "ВЫ НЕ ДОЛЖНЫ ПРИЧИНЯТЬ ВРЕД[ioncrew1] AND [ioncrew2] AND И НЕ ДОПУСТИТЬ ЧТОБ EITHER, ИЗ-ЗА ВАШЕГО БЕЗДЕЙСТВИЯ, ПОЛУЧИЛИ ВРЕД"
+							message = "ВЫ НЕ ДОЛЖНЫ ПРИЧИНЯТЬ ВРЕД[ioncrew1] И [ioncrew2] И НЕ ДОПУСТИТЬ ЧТОБ ЛЮБОЙ ИЗ НИХ, ИЗ-ЗА ВАШЕГО БЕЗДЕЙСТВИЯ, ПОЛУЧИЛИ ВРЕД"
 
 		if(37 to 39) //The X is currently Y
 			switch(rand(1,4)) //What is X?
