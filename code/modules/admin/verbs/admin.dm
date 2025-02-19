@@ -184,6 +184,11 @@ ADMIN_VERB(drop_everything, R_ADMIN, "Drop Everything", ADMIN_VERB_NO_DESCRIPTIO
 		if(MUTE_INTERNET_REQUEST)
 			mute_string = "internet sound requests"
 			feedback_string = "Internet Sound Requests"
+		// MASSMETA ADDITION START: mentors
+		if(MUTE_MENTORHELP)
+			mute_string = "mhelp"
+			feedback_string = "Mentor Help"
+		// MASSMETA ADDIITON END: mentors
 		if(MUTE_ALL)
 			mute_string = "everything"
 			feedback_string = "Everything"

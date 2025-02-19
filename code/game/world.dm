@@ -178,6 +178,7 @@ GLOBAL_PROTECT(tracy_init_reason)
 	SetupLogs()
 
 	load_admins()
+	load_mentors() // MASSMETA ADDITION: mentors
 
 	load_poll_data()
 
