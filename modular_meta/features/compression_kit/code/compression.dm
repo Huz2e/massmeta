@@ -15,7 +15,7 @@
 	s.set_up(5, 1, get_turf(src))
 	s.start()
 
-/obj/item/compressionkit/suicide_act(mob/living/carbon/M)
+/obj/item/compressionkit/suicide_act(mob/living/carbon/M) // Работает лишь на половину, осталось после переноса с beestation
 	M.visible_message(span_suicide("[M] is sticking their head in [src] and turning it on! [M.p_theyre(TRUE)] going to compress their own skull!"))
 	var/obj/item/bodypart/head = M.get_bodypart(BODY_ZONE_HEAD)
 	if(!head)
@@ -43,8 +43,8 @@
 		return
 	if(istype(target, /obj/item))
 		var/obj/item/O = target
-		if(O.GetComponent(/datum/component/container_item))
-			to_chat(user, span_notice("You can't make this item any smaller without compromising its storage functions!."))
+		if(istype(O, /obj/item/storage || /obj/item/mod/module/storage)) //Понятия не имею как запретить уменьшать мод костюмы.
+			to_chat(user, span_notice("You can't make this item any smaller without compromising its storage functions!"))
 			return
 		if(O.w_class == WEIGHT_CLASS_TINY)
 			playsound(get_turf(src), 'sound/machines/buzz/buzz-two.ogg', 50, 1)
