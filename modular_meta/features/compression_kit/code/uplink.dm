@@ -1,4 +1,4 @@
-/datum/uplink_item/comp_kit
+/datum/uplink_item/device_tools/comp_kit
 	name = "Compression Kit"
 	desc = "A modified version of a BSRPED that can be used to reduce the size of most items while retaining their original functions! \
 			Does not work on storage items \

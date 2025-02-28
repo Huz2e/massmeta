@@ -43,7 +43,7 @@
 		return
 	if(istype(target, /obj/item))
 		var/obj/item/O = target
-		if(istype(O, /obj/item/storage || /obj/item/mod/module/storage)) //Понятия не имею как запретить уменьшать мод костюмы.
+		if(istype(O, /obj/item/storage) || istype(O, /obj/item/mod))
 			to_chat(user, span_notice("You can't make this item any smaller without compromising its storage functions!"))
 			return
 		if(O.w_class == WEIGHT_CLASS_TINY)
