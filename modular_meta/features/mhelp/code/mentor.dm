@@ -86,3 +86,22 @@ ADMIN_VERB(reload_mentors, R_ADMIN, "Reload Mentors", "Reload all mentors", "Men
 	load_mentors()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reload All Mentors") // If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	message_admins("[key_name_admin(usr)] manually reloaded mentors")
+
+ADMIN_VERB(add_mentor, R_PERMISSIONS, "Add Mentor", "Add a new mentor", "Mentor" )
+	if(!user)
+		return
+
+	var/path = "[global.config.directory]/mentors.txt"
+	var/list/lines = world.file2list(path)
+	var/ckey = input("Enter ckey.", "Ckey") as text|null
+
+	if(ckey)
+		if(ckey in lines)
+			return
+		if(!GLOB.mentor_datums[ckey])
+			new /datum/mentors(ckey)
+		var/F = file(path)
+		WRITE_FILE(F, ckey)
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Add a new mentor")
+		message_admins("[key_name_admin(usr)] has made [ckey] a mentor.")
+		log_admin("[key_name(usr)] has made [ckey] a mentor.")
