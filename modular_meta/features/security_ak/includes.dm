@@ -5,4 +5,4 @@
 	name = "Легендарный калаш"
 	group = "Features"
 	desc = "Легендарный калаш прямо с поля боя ещё с тех лет, Вау!"
-	author = "Harusha, Artemchik, El Govnocoder"
+	author = "Harusha, Artemchik, El Govnocoder, SanecMan"
