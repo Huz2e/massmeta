@@ -33,4 +33,4 @@
 
 /obj/machinery/vending/clothing
 	. = ..()
-	contraband += /obj/item/clothing/mask/my_item
+	contraband += /obj/item/clothing/mask/balaclava/halal_balaclava
