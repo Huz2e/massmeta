@@ -22,8 +22,8 @@
 
 	// Запускаем кулдаун
     COOLDOWN_START(src, praise_allah_cooldown, 10 SECONDS) // 10 секунд кулдаун
-	// Сообщение в IC-чат
-    to_chat(usr, span_alert("<b>[usr]</b> shouts: INSHALLAH!"))
+	// Сообщение в IC-чат, через say, то есть чувак будет просто говорить это
+    usr.say("INSHALLA!!!")
 	// (Опционально) Можно добавить звук
     playsound(src, "", 100, FALSE, 4)
 
