@@ -6,12 +6,13 @@
 	icon_state = "halal_balaclava"
 	worn_icon = 'modular_meta/features/halal_equipment/icons/worn_halal_balaclava.dmi'
 	worn_icon_state = "worn_halal_balaclava"
+	COOLDOWN_DECLARE(praise_allah_cooldown)
 
 /obj/item/clothing/mask/balaclava/halal_balaclava/verb/praise_allah()
 	set category = "Object"
 	set name = "PRAISE ALLAH"
 	set src in usr
-	COOLDOWN_DECLARE(praise_allah_cooldown)
+
 
 	if(!isliving(usr) || !can_use(usr))  // проверка, живой ли юзер маски и может ли вообще он юзать(не застанен ли)
 		return
@@ -25,10 +26,11 @@
 	// Сообщение в IC-чат, через say, то есть чувак будет просто говорить это
 	usr.say("INSHALLA!!!")
 	// (Опционально) Можно добавить звук
-	playsound(src, "modular_meta/features/halal_equipment/sound/inshalla_allah_scream.ogg", 100, TRUE, 7)
+
 
 /datum/action/item_action/praise_allah
 	name = "Praise_allah!"
+	playsound(src, "modular_meta/features/halal_equipment/sound/inshalla_allah_scream.ogg", 100, TRUE, 7)
 
 
 /obj/machinery/vending/clothing
