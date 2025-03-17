@@ -17,15 +17,15 @@
 		return
 
 	if (!COOLDOWN_FINISHED(src, praise_allah_cooldown))
-    	to_chat(usr, span_warning("You must wait before praising Allah again!"))
-        return
+		to_chat(usr, span_warning("You must wait before praising Allah again!"))
+		return
 
 	// Запускаем кулдаун
-    COOLDOWN_START(src, praise_allah_cooldown, 10 SECONDS) // 10 секунд кулдаун
+	COOLDOWN_START(src, praise_allah_cooldown, 10 SECONDS) // 10 секунд кулдаун
 	// Сообщение в IC-чат, через say, то есть чувак будет просто говорить это
-    usr.say("INSHALLA!!!")
+	usr.say("INSHALLA!!!")
 	// (Опционально) Можно добавить звук
-    playsound(src, "modular_meta/features/halal_equipment/sound/4allahu-akbar-sound-effect.ogg", 100, TRUE, 7)
+	playsound(src, "modular_meta/features/halal_equipment/sound/inshalla_allah_scream.ogg", 100, TRUE, 7)
 
 /datum/action/item_action/praise_allah
 	name = "Praise_allah!"
