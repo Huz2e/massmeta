@@ -30,7 +30,7 @@
 
 /datum/action/item_action/praise_allah
 	name = "Praise_allah!"
-	playsound(src, "modular_meta/features/halal_equipment/sound/inshalla_allah_scream.ogg", 100, TRUE, 7)
+	playsound(src, 'modular_meta/features/halal_equipment/sound/inshalla_allah_scream.ogg', 100, TRUE, 7)
 
 
 /obj/machinery/vending/clothing
