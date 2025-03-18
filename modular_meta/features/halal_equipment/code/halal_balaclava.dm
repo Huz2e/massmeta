@@ -33,6 +33,6 @@
 	playsound(src, 'modular_meta/features/halal_equipment/sound/inshalla_allah_scream.ogg', 100, TRUE, 7)
 
 
-/obj/machinery/vending/clothing
+/obj/machinery/vending/clothing/Initialize(mapload)
 	. = ..()
 	contraband += list(/obj/item/clothing/mask/balaclava/halal_balaclava = 1,)
