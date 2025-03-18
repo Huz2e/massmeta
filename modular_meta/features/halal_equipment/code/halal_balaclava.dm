@@ -35,4 +35,4 @@
 
 /obj/machinery/vending/clothing
 	. = ..()
-	contraband += /obj/item/clothing/mask/balaclava/halal_balaclava
+	contraband += list(/obj/item/clothing/mask/balaclava/halal_balaclava = 1,)
