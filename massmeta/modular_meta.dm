@@ -16,6 +16,7 @@
 #include "features\kvass\includes.dm"
 #include "features\smites\includes.dm"
 #include "features\soviet_crate\includes.dm"
+#include "features\laws\morechance.dm"
 // END_INCLUDE
 
 
