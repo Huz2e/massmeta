@@ -12,6 +12,9 @@
 #if CHEBUREK_CAR
 	#include "features\cheburek_car\includes.dm"
 #endif
+#if HALAL_EQUIPMENT
+	#include "features\halal_equipment\includes.dm"
+#endif
 #include "features\venom_knife\includes.dm"
 /* -- REVERTS -- */
 
