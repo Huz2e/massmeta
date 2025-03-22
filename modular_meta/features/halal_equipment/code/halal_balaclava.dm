@@ -26,11 +26,11 @@
 	// Сообщение в IC-чат, через say, то есть чувак будет просто говорить это
 	usr.say("INSHALLA!!!")
 	// (Опционально) Можно добавить звук
-
+	playsound(src, 'modular_meta/features/halal_equipment/sound/inshalla_allah_scream.ogg', 100, TRUE, 7)
 
 /datum/action/item_action/praise_allah
 	name = "Praise_allah!"
-	playsound(src, 'modular_meta/features/halal_equipment/sound/inshalla_allah_scream.ogg', 100, TRUE, 7)
+
 
 
 /obj/machinery/vending/clothing/Initialize(mapload)
