@@ -8,6 +8,10 @@
 
 /* --FEATURES-- */
 
+#if HOOKAHS
+	#include "features\hookahs\includes.dm"
+#endif
+
 #include "features\additional_circuit\includes.dm"
 #include "features\butt_farts\includes.dm"
 #if CHEBUREK_CAR
@@ -32,4 +36,3 @@
 #if RU_VENDORS
 	#include "ru_translate\ru_vendors\includes.dm"
 #endif
-

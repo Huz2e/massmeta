@@ -7,6 +7,7 @@
 
 
 /// FEATURES
+#define HOOKAHS 1
 #define CHEBUREK_CAR 1
 
 /// PEREVODY
