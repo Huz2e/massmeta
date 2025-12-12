@@ -21,9 +21,9 @@
 	/// Callback for the jetpack component
 	var/thrust_callback
 	/// How much force out jetpack can output per tick
-	var/drift_force = 1.5 NEWTONS
+	var/drift_force = 8 NEWTONS //MASSMETA EDIT (fix_newtonian_movement)
 	/// How much force this jetpack can output per tick to stabilize the user
-	var/stabilizer_force = 1.2 NEWTONS
+	var/stabilizer_force = 25 NEWTONS //MASSMETA EDIT (fix_newtonian_movement)
 
 /obj/item/tank/jetpack/Initialize(mapload)
 	. = ..()
@@ -187,8 +187,8 @@
 	volume = 20 //normal jetpacks have 70 volume
 	gas_type = null //it starts empty
 	full_speed = FALSE
-	drift_force = 1 NEWTONS
-	stabilizer_force = 0.5 NEWTONS
+	drift_force = 3 NEWTONS //MASSMETA EDIT (fix_newtonian_movement)
+	stabilizer_force = 10 NEWTONS //MASSMETA EDIT (fix_newtonian_movement)
 	custom_materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT * 4.4, /datum/material/glass = SMALL_MATERIAL_AMOUNT * 3)
 
 /obj/item/tank/jetpack/improvised/allow_thrust(num)
@@ -226,8 +226,8 @@
 	volume = 90
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //steal objective items are hard to destroy.
 	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_SUITSTORE
-	drift_force = 2 NEWTONS
-	stabilizer_force = 2 NEWTONS
+	drift_force = 8 NEWTONS //MASSMETA EDIT (fix_newtonian_movement)
+	stabilizer_force = 25 NEWTONS //MASSMETA EDIT (fix_newtonian_movement)
 
 /obj/item/tank/jetpack/security
 	name = "security jetpack (oxygen)"

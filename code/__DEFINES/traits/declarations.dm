@@ -1031,6 +1031,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SETTLER "settler"
 #define TRAIT_STRONG_STOMACH "strong_stomach"
 #define TRAIT_VEGETARIAN "trait_vegetarian"
+//MASSMETA ADD BEGIN (butt_farts)
+//Butt traits for quirks
+#define TRAIT_LOUD_ASS "loud_ass"
+#define TRAIT_UNSTABLE_ASS "unstable_ass"
+#define TRAIT_STABLE_ASS "stable_ass"
+//MASSMETA ADD END
 
 /// This mob always lands on their feet when they fall, for better or for worse.
 #define TRAIT_CATLIKE_GRACE "catlike_grace"

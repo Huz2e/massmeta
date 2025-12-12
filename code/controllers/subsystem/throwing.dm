@@ -207,7 +207,7 @@ SUBSYSTEM_DEF(throwing)
 	var/drift_force = speed
 	if (isitem(thrownthing))
 		var/obj/item/thrownitem = thrownthing
-		drift_force *= WEIGHT_TO_NEWTONS(thrownitem.w_class)
+		drift_force *= WEIGHT_TO_NEWTONS(thrownitem.w_class) * 2 //MASSMETA EDIT (fix_newtonian_movement)
 
 	if (!hit)
 		for (var/atom/movable/obstacle as anything in get_turf(thrownthing)) //looking for our target on the turf we land on.

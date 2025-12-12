@@ -142,6 +142,10 @@ DEFINE_BITFIELD(bot_cover_flags, list(
 #define VIBE_BOT "Vibebot"
 /// Repairbots
 #define REPAIR_BOT "Repairbot"
+//MASSMETA ADD (butt_farts)
+/// Buttbots
+#define BUTT_BOT "Buttbot"
+//MASSMETA ADD END
 
 // General Bot modes //
 /// Idle

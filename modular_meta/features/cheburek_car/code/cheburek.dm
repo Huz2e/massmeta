@@ -282,7 +282,7 @@ Some memes and gags included.
 				last_chosen_meme = 2
 
 		visible_message(span_userdanger("I Drive."))
-		AddElement(/datum/element/waddling)
+		src.AddElementTrait(TRAIT_WADDLING, REF(src), /datum/element/waddling)
 		gopmode = TRUE // oh fuck...
 		vehicle_move_delay = 5 // too much lags on higher speed
 		gopgear = 1
@@ -311,7 +311,7 @@ Some memes and gags included.
 				balloon_alert(user, "gearbox broken")
 			else
 				gearbox_failure_count++
-			AddElement(/datum/element/waddling)
+			src.AddElementTrait(TRAIT_WADDLING, REF(src), /datum/element/waddling)
 			playsound(src, pick('modular_meta/features/cheburek_car/sound/gear_fault.ogg', 'modular_meta/features/cheburek_car/sound/gear_fault2.ogg', 'modular_meta/features/cheburek_car/sound/gear_fault3.ogg'), 50)
 			addtimer(CALLBACK(src, PROC_REF(revert_waddling)), 1 SECONDS)
 		else
@@ -342,7 +342,7 @@ Some memes and gags included.
 				balloon_alert(user, "gearbox broken")
 			else
 				gearbox_failure_count++
-			AddElement(/datum/element/waddling) // your gears are juggling like a clown do
+			src.AddElementTrait(TRAIT_WADDLING, REF(src), /datum/element/waddling) // your gears are juggling like a clown do
 			playsound(src, pick('modular_meta/features/cheburek_car/sound/gear_fault.ogg', 'modular_meta/features/cheburek_car/sound/gear_fault2.ogg', 'modular_meta/features/cheburek_car/sound/gear_fault3.ogg'), 50)
 			addtimer(CALLBACK(src, PROC_REF(revert_waddling)), 1 SECONDS)
 		else

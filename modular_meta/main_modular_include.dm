@@ -8,12 +8,20 @@
 
 /* --FEATURES-- */
 
+#if HOOKAHS
+	#include "features\hookahs\includes.dm"
+#endif
+
 #include "features\additional_circuit\includes.dm"
+#include "features\butt_farts\includes.dm"
 #if CHEBUREK_CAR
 	#include "features\cheburek_car\includes.dm"
 #endif
 #include "features\venom_knife\includes.dm"
 #include "features\skill_issue\includes.dm"
+#if ROBUST_ENJOYER
+	#include "features\robust_enjoyer\includes.dm"
+#endif
 /* -- REVERTS -- */
 
 #include "reverts\revert_glasses_protect_welding\includes.dm"
@@ -31,4 +39,3 @@
 #if RU_VENDORS
 	#include "ru_translate\ru_vendors\includes.dm"
 #endif
-

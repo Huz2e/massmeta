@@ -1,19 +1,24 @@
 /obj/item/organ/internal/butt
 	name = "butt"
 	desc = "extremely treasured body part"
-	worn_icon = 'massmeta/icons/obj/worn_butts.dmi' //Wearable on the head
-	icon = 'massmeta/icons/obj/butts.dmi'
+	worn_icon = 'modular_meta/features/butt_farts/icons/worn_butts.dmi' //Wearable on the head
+	icon = 'modular_meta/features/butt_farts/icons/butts.dmi'
 	icon_state = "ass"
 	zone = BODY_ZONE_PRECISE_GROIN
 	slot = ORGAN_SLOT_BUTT
 	throw_speed = 1
 	force = 4
 	embed_type = /datum/embedding/butt
-	hitsound = 'massmeta/sounds/fartts/fart1.ogg'
+	hitsound = 'modular_meta/features/butt_farts/sound/farts/fart1.ogg'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_HEAD
-	var/list/sound_effect  = list('massmeta/sounds/fartts/fart1.ogg', 'massmeta/sounds/fartts/fart2.ogg', 'massmeta/sounds/fartts/fart3.ogg', 'massmeta/sounds/fartts/fart4.ogg')
-	var/atmos_gas = "miasma=0.25;TEMP=310.15" //310.15 is body temperature
+	var/list/sound_effect  = list(
+		'modular_meta/features/butt_farts/sound/farts/fart1.ogg',
+		'modular_meta/features/butt_farts/sound/farts/fart2.ogg',
+		'modular_meta/features/butt_farts/sound/farts/fart3.ogg',
+		'modular_meta/features/butt_farts/sound/farts/fart4.ogg'
+		)
+	var/atmos_gas = "miasma=0.25;TEMP=310.15" //310.15 is body temperature (TODO сделать зависимость от core temp)
 	var/fart_instability = 1 //Percent chance to lose your rear each fart.
 	var/cooling_down = FALSE
 
@@ -28,7 +33,12 @@
 /obj/item/organ/internal/butt/atomic
 	name = "Atomic Ass"
 	desc = "A highly radioactive and unstable posterior. Anyone with this is a walking war crime."
-	sound_effect = list("sound/items/geiger/low1.ogg", "sound/items/geiger/low2.ogg", "sound/items/geiger/low3.ogg", "sound/items/geiger/low4.ogg")
+	sound_effect = list(
+		"sound/items/geiger/low1.ogg",
+		"sound/items/geiger/low2.ogg",
+		"sound/items/geiger/low3.ogg",
+		"sound/items/geiger/low4.ogg"
+		)
 	fart_instability = 5
 	atmos_gas = "tritium=5;TEMP=600"
 	icon_state = "atomicass"
@@ -42,7 +52,7 @@
 		cooling_down = TRUE
 		user.audible_message("[user] <font color='green'>farts.</font>")
 		if(prob(fart_instability))
-			playsound(user, "sound/machines/alarm.ogg", 100, FALSE, 50, ignore_walls=TRUE, channel = CHANNEL_MOB_SOUNDS)
+			playsound(user, "sound/machines/alarm.ogg", 100, FALSE, 50, ignore_walls=TRUE, channel = CHANNEL_FART_SOUNDS)
 			minor_announce("The detonation of a nuclear posterior has been detected in your area. All crew are required to exit the blast radius.", "Nanotrasen Atomics", 0)
 			Person.Paralyze(120)
 			Person.electrocution_animation(120)
@@ -51,7 +61,7 @@
 				dyn_explosion(Location, 20,10)
 				cooling_down = FALSE
 		else
-			playsound(user, pick(sound_effect), 50, TRUE, channel = CHANNEL_MOB_SOUNDS)
+			playsound(user, pick(sound_effect), 50, TRUE, channel = CHANNEL_FART_SOUNDS)
 			Location.atmos_spawn_air(atmos_gas)
 			spawn(20)
 				cooling_down = FALSE
@@ -71,7 +81,12 @@
 	name = "Flatulence Simulator"
 	desc = "Designed from the ground up to create advanced humor."
 	icon_state = "roboass"
-	sound_effect = list('sound/machines/buzz/buzz-sigh.ogg', 'sound/machines/buzz/buzz-two.ogg', 'sound/machines/terminal/terminal_error.ogg', 'sound/items/weapons/ring.ogg')
+	sound_effect = list(
+		'sound/machines/buzz/buzz-sigh.ogg',
+		'sound/machines/buzz/buzz-two.ogg',
+		'sound/machines/terminal/terminal_error.ogg',
+		'sound/items/weapons/ring.ogg'
+		)
 	atmos_gas = "co2=0.25;TEMP=310.15"
 
 //CLOWN ASS
@@ -83,7 +98,7 @@
 	icon_state = "clownass"
 	sound_effect = list('sound/items/party_horn.ogg', 'sound/items/bikehorn.ogg')
 
-/obj/item/organ/internal/butt/clown/Initialize()
+/obj/item/organ/internal/butt/clown/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/slippery, 40)
 
@@ -106,14 +121,14 @@
 	name = "Skeletal Butt"
 	desc = "You don't understand how this works!"
 	atmos_gas = "o2=0.25;TEMP=310.15"
-	sound_effect = list("monkestation/sound/voice/laugh/skeleton/skeleton_laugh.ogg")
+	sound_effect = list("modular_meta/features/butt_farts/sound/skeleton_laugh.ogg")
 	icon_state =  "skeleass"
 
 //PLASMAMAN ASS
 /obj/item/organ/internal/butt/plasma
 	name = "Plasmaman Butt"
 	desc = "You REALLY don't understand how this works!"
-	sound_effect = list("monkestation/sound/voice/laugh/skeleton/skeleton_laugh.ogg")
+	sound_effect = list("modular_meta/features/butt_farts/sound/skeleton_laugh.ogg")
 	fart_instability = 5
 	atmos_gas = "plasma=0.25;TEMP=310.15"
 	icon_state = "plasmaass"
@@ -131,19 +146,19 @@
 	desc = "Truly, the trophy of champions."
 	icon_state = "xenoass"
 
-//IMMOVABLE ASS
+//IMMOVABLE ASS (TODO: сделать как смешной аналог ивента с палкой)
 /obj/effect/immovablerod/butt
 	name = "immovable butt"
 	desc = "No, really, what the fuck is that?"
-	icon = 'massmeta/icons/obj/butts.dmi'
+	icon = 'modular_meta/features/butt_farts/icons/butts.dmi'
 	icon_state = "ass"
 
-/obj/effect/immovablerod/butt/Initialize()
+/obj/effect/immovablerod/butt/Initialize(mapload)
 	. = ..()
 	src.SpinAnimation(5, -1)
 
 /obj/effect/immovablerod/butt/Bump(atom/clong)
-	playsound(src,'massmeta/sounds/fartts/fart1.ogg', 100, TRUE, 10, pressure_affected = FALSE)
+	playsound(src,'modular_meta/features/butt_farts/sound/farts/fart1.ogg', 100, TRUE, 10, pressure_affected = FALSE)
 	..()
 
 //ACTUAL FART PROC
@@ -172,7 +187,7 @@
 			Person.Paralyze(15)
 			Person.visible_message("<span class='warning'>[Person] attempts to fart on the [Holy], uh oh.<span>","<span class='ratvar'>What a grand and intoxicating innocence. Perish.</span>")
 			playsound(user,'sound/effects/magic/lightningshock.ogg', 50, 1)
-			playsound(user,	'massmeta/sounds/fartts/dagothgod.ogg', 80)
+			playsound(user,	'modular_meta/features/butt_farts/sound/farts/dagothgod.ogg', 80)
 			Person.electrocution_animation(15)
 			spawn(15)
 				Person.gib()
@@ -196,7 +211,7 @@
 			hit_target = TRUE
 			break
 	if(!hit_target)
-		user.audible_message("[pick(world.file2list("massmeta/strings/farts.txt"))]", audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
+		user.audible_message("[pick(world.file2list("modular_meta/features/butt_farts/strings/farts.txt"))]", audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
 
 
 	//SOUND HANDLING
@@ -222,93 +237,3 @@
 
 		spawn(15)
 			cooling_down = FALSE
-
-
-//Buttbot Production
-/obj/item/organ/internal/butt/attackby(obj/item/I, mob/living/user)
-	if(istype(I, /obj/item/bodypart/arm/left/robot) || istype(I, /obj/item/bodypart/arm/right/robot))
-		var/mob/living/basic/bot/buttbot/new_butt = new(get_turf(src))
-		qdel(I)
-		switch(src.type) //A BUTTBOT FOR EVERYONE!
-			if(/obj/item/organ/internal/butt/atomic)
-				new_butt.name = "Atomic Buttbot"
-				new_butt.desc = "Science has gone too far."
-				new_butt.icon_state = "buttbot_atomic"
-			if(/obj/item/organ/internal/butt/bluespace)
-				new_butt.name = "Bluespace Buttbot"
-				new_butt.desc = "The peak of Nanotrasen design."
-				new_butt.icon_state = "buttbot_bluespace"
-			if(/obj/item/organ/internal/butt/clown)
-				new_butt.name = "Bananium Buttbot"
-				new_butt.desc = "Didn't you know clown asses were made out of Bananium?"
-				new_butt.icon_state = "buttbot_clown"
-				new_butt.AddComponent(/datum/component/slippery, 40)
-			if(/obj/item/organ/internal/butt/cyber)
-				new_butt.name = "Cybernetic Buttbot"
-				new_butt.desc = "LAW ONE: BUTT"
-				new_butt.icon_state = "buttbot_cyber"
-			if(/obj/item/organ/internal/butt/iron)
-				new_butt.name = "Iron Buttbot"
-				new_butt.desc = "We can rebutt him, we have the technology."
-				new_butt.icon_state = "buttbot_iron"
-			if(/obj/item/organ/internal/butt/plasma)
-				new_butt.name = "Plasma Buttbot"
-				new_butt.desc = "Safer here than on it's owner."
-				new_butt.icon_state = "buttbot_plasma"
-			if(/obj/item/organ/internal/butt/skeletal)
-				new_butt.name = "Skeletal Buttbot"
-				new_butt.desc = "Rattle Me Booty!"
-				new_butt.icon_state = "buttbot_skeleton"
-			if(/obj/item/organ/internal/butt/xeno)
-				new_butt.name = "Xenomorph Buttbot"
-				new_butt.desc = "hiss!"
-				new_butt.icon_state = "buttbot_xeno"
-
-		playsound(src, pick('massmeta/sounds/fartts/fart1.ogg', 'massmeta/sounds/fartts/fart2.ogg', 'massmeta/sounds/fartts/fart3.ogg', 'massmeta/sounds/fartts/fart4.ogg'), 25 ,use_reverb = TRUE, channel = CHANNEL_MOB_SOUNDS)
-		qdel(src)
-
-/mob/living/basic/bot/buttbot
-	name = "\improper buttbot"
-	desc = "butts"
-	icon = 'massmeta/icons/obj/butts.dmi'
-	icon_state = "buttbot"
-	density = FALSE
-	anchored = FALSE
-	health = 25
-	maxHealth = 25
-	bot_type = BUTT_BOT
-	pass_flags = PASSMOB
-	var/cooling_down = FALSE
-	var/butt_probability = 15
-	var/listen_probability = 30
-
-/mob/living/basic/bot/buttbot/emag_act(mob/user)
-	if(!(bot_access_flags & BOT_COVER_EMAGGED))
-		visible_message("<span class='warning'>[user] swipes a card through the [src]'s crack!</span>", "<span class='notice'>You swipe a card through the [src]'s crack.</span>")
-		listen_probability = 75
-		butt_probability = 30
-		bot_access_flags |= BOT_COVER_EMAGGED
-		var/turf/butt = get_turf(src)
-		butt.atmos_spawn_air("miasma=5;TEMP=310.15")
-		playsound(src, pick('massmeta/sounds/fartts/fart1.ogg', 'massmeta/sounds/fartts/fart2.ogg', 'massmeta/sounds/fartts/fart3.ogg', 'massmeta/sounds/fartts/fart4.ogg'), 100 ,use_reverb = TRUE)
-
-/mob/living/basic/bot/buttbot/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods, message_range)
-	. = ..()
-	if(!cooling_down && prob(listen_probability) && ishuman(speaker))
-		cooling_down = TRUE
-		var/list/split_message = splittext(raw_message, " ")
-		for (var/i in 1 to length(split_message))
-			if(prob(butt_probability))
-				split_message[i] = pick("butt", "butts")
-		if((bot_access_flags & BOT_COVER_EMAGGED))
-			var/turf/butt = get_turf(src)
-			butt.atmos_spawn_air("miasma=5;TEMP=310.15")
-		var/joined_text = jointext(split_message, " ")
-		if(!findtext(joined_text, "butt")) //We must butt, or else.
-			cooling_down = FALSE
-			return
-		say(joined_text)
-		playsound(src, pick('massmeta/sounds/fartts/fart1.ogg', 'massmeta/sounds/fartts/fart2.ogg', 'massmeta/sounds/fartts/fart3.ogg', 'massmeta/sounds/fartts/fart4.ogg'), 100 ,use_reverb = TRUE)
-		spawn(20)
-			cooling_down = FALSE
-
