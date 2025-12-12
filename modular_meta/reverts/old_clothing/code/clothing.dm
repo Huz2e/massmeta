@@ -1,7 +1,7 @@
 //HOP
 /obj/item/clothing/under/rank/civilian/head_of_personnel
 	icon = 'modular_meta/reverts/old_clothing/icons/civilian.dmi'
-	worn_icon = 'modular_meta/reverts/old_clothing/icons/civilian.dmi'
+	worn_icon = 'modular_meta/reverts/old_clothing/icons/mob_civilian.dmi'
 
 /obj/item/clothing/under/rank/civilian/head_of_personnel/skirt
 	icon = 'modular_meta/reverts/old_clothing/icons/civilian.dmi'
