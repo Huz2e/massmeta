@@ -19,6 +19,9 @@
 #endif
 #include "features\venom_knife\includes.dm"
 #include "features\skill_issue\includes.dm"
+#if ROBUST_ENJOYER
+	#include "features\robust_enjoyer\includes.dm"
+#endif
 /* -- REVERTS -- */
 
 #include "reverts\revert_glasses_protect_welding\includes.dm"
