@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="dmdoc.css"><title>modular_meta/z_example_modpack/readme.md - /tg/ Station 13</title></head><body><header><a href="index.html">/tg/ Station 13</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>modular_meta/z_example_modpack/readme.md <a href="https://github.com/Huz2e/massmeta/blob/f46043730fada215d5719883cfc4d12cd9c1b27c/modular_meta/z_example_modpack/readme.md"><img src="git.png" width="16" height="16" title="modular_meta/z_example_modpack/readme.md"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><h2 id="module-id-z-example-modpack">Module ID: Z_EXAMPLE_MODPACK</h2>
+<p>Три параграфа ниже должны быть описаны в вашем файле <code>readme.md</code>: <strong>Defines</strong>, <strong>TG Proc/File Changes</strong> и <strong>TGUI Files</strong>.</p>
+<h3 id="defines">Defines:</h3>
+<ul>
+<li>Опишите здесь какие defines, globalvars, helpers вы используете в своем модуле. </li>
+<li>Сами файлы кладутся в соотвествущие подпапки модульной папки <code>modular_meta/</code>.</li>
+<li>Не забывайте инклюдить свои файлы в соотвествущие &quot;общие инклюды&quot;, например в <code>_main_modular_defines_include.dm</code></li>
+</ul>
+<h3 id="tg-proc-file-changes">TG Proc/File Changes:</h3>
+<ul>
+<li>В этом пункте укажите какие именно оригинальные файлы ТГ в папке <code>code/</code> были изменены под ваш модуль.</li>
+<li>Если вы практически полностью изменили оригинальный файл, то в таком случае его можно полностью комментировать и выносить в ваш модуль.</li>
+<li>В таком случае дополнительно подпишите, что файл был полностью &quot;перемещён&quot;. <code>Moved to modular_meta/z_example_modpack/my_file.dm</code></li>
+</ul>
+<h3 id="tgui-files">TGUI Files:</h3>
+<ul>
+<li>Здесь опишите какие TGUI файлы были созданы или изменены для вашего модуля.</li>
+<li>Если вы создали абсолютно новый файл, то в самом верху допишите: <code>// THIS IS A MASSMETA UI FILE</code>.</li>
+<li>Все файлы добавляются/изменяются только в подпапке <code>tgui/packages/tgui/interfaces/</code>.</li>
+</ul>
+<h2 id="общие-пояснения-к-модулю">Общие пояснения к модулю</h2>
+<p>Полное руководство по модульности находится в файле<code> modular_meta/modularization_guide_ru.md</code></p>
+<p>Если вкратце, то парамерты, такие как авторство, название, описание модуля и прочее вы указываете в сам объект модпака. Он раположен в файле <code>includes.dm</code> вашего модуля.</p>
+<p>В нем же находятся ваши добавления (инклюды) файлов из папки <code>code/</code>. Например: <code>#include &quot;code\my_modpack_file.dm&quot;</code>.</p>
+<p>В файле <code>preview.dmi</code> иконку модуля назвать аналогично ID вашего модуля: <code>z_example_modpack</code>.</p></td></tr></table></main><footer>tgstation.dme <a href="https://github.com/Huz2e/massmeta/tree/f46043730fada215d5719883cfc4d12cd9c1b27c">f460437</a> (master) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>
