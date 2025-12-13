@@ -3,7 +3,7 @@
 	name = "Soviet Vehicle Exports"
 	desc = "The most affordable vehicle in the entire galaxy. \
 		Comes with tools and something else."
-	contraband = TRUE
+	order_flags = ORDER_CONTRABAND
 	cost = 666666 // devil creature for devil price, not because model number is "6"
 	contains = list(
 		/obj/item/food/semki = 6,
