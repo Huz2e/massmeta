@@ -14,6 +14,8 @@
 	/// Whether or not to allow numbers in the person's name
 	var/allow_numbers = FALSE
 
+	var/allow_latin = FALSE // MASSMETA ADDITION
+
 	/// If the highest priority job matches this, will prioritize this name in the UI
 	var/relevant_job
 
@@ -24,17 +26,17 @@
 
 
 /datum/preference/name/deserialize(input, datum/preferences/preferences)
-	return reject_bad_name("[input]", allow_numbers)
+	return reject_bad_name("[input]", allow_numbers, allow_latin = allow_latin) // MASSMETA EDIT
 
 
 /datum/preference/name/serialize(input)
 	// `is_valid` should always be run before `serialize`, so it should not
 	// be possible for this to return `null`.
-	return reject_bad_name(input, allow_numbers)
+	return reject_bad_name(input, allow_numbers, allow_latin = allow_latin) // MASSMETA EDIT
 
 
 /datum/preference/name/is_valid(value)
-	return istext(value) && !isnull(reject_bad_name(value, allow_numbers))
+	return istext(value) && !isnull(reject_bad_name(value, allow_numbers, allow_latin = allow_latin)) // MASSMETA EDIT
 
 
 /// A character's real name
@@ -68,7 +70,7 @@
 		else if(first_space == length(input))
 			input += "[pick(GLOB.last_names)]"
 
-	return reject_bad_name(input, allow_numbers)
+	return reject_bad_name(input, allow_numbers, allow_latin = allow_latin)
 
 /// The name for a backup human, when nonhumans are made into head of staff
 /datum/preference/name/backup_human
@@ -103,6 +105,7 @@
 	savefile_key = "cyborg_name"
 
 	allow_numbers = TRUE
+	allow_latin = TRUE // MASSMETA ADDITION
 	can_randomize = FALSE
 
 	explanation = "Cyborg name"
@@ -119,6 +122,7 @@
 	explanation = "AI name"
 	group = "silicons"
 	relevant_job = /datum/job/ai
+	allow_latin = TRUE // MASSMETA ADDITION
 
 /datum/preference/name/ai/create_default_value()
 	return pick(GLOB.ai_names)
@@ -187,6 +191,7 @@
 	group = "bitrunning"
 	savefile_key = "hacker_alias"
 	relevant_job = /datum/job/bitrunner
+	allow_latin = TRUE // MASSMETA ADDITION
 
 
 /datum/preference/name/hacker_alias/create_default_value()
