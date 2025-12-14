@@ -31,6 +31,7 @@
 
 #include "ru_translate\ru_ai_laws\includes.dm"
 #include "ru_translate\ru_codewords\includes.dm"
+#include "ru_translate\ru_names\includes.dm"
 
 #if RU_CRAYONS
 	#include "ru_translate\ru_crayons\includes.dm"
