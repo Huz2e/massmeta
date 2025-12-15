@@ -146,6 +146,7 @@
 
 	explanation = "Deity name"
 	group = "religion"
+	allow_latin = TRUE // MASSMETA ADDITION
 
 /datum/preference/name/deity/create_default_value()
 	return DEFAULT_DEITY
@@ -158,6 +159,7 @@
 
 	explanation = "Bible name"
 	group = "religion"
+	allow_latin = TRUE // MASSMETA ADDITION
 
 /datum/preference/name/bible/create_default_value()
 	return DEFAULT_BIBLE
